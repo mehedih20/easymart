@@ -29,7 +29,7 @@ const Navigation = () => {
               {isCartEmpty ? <BsCart /> : <BsCartCheck />} Cart
             </button>
             <button onClick={() => navigate("/login")}>
-              <AiOutlineLogin /> Login
+              <AiOutlineLogin /> Login / Sign up
             </button>
           </div>
         </div>

@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
+import useGlobalContext from "../../hooks/useGlobalContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isUser, setIsUser] = useState(false);
+  const { firebase } = useGlobalContext();
+  const { googleSignIn } = firebase;
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Hello World");
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn();
+    navigate("/");
   };
 
   return (
@@ -27,9 +36,9 @@ const Login = () => {
 
           <p>_ _ _ _ _ _</p>
 
-          <button className="google-btn">
-            <FcGoogle style={{ marginRight: "1rem", marginTop: "-0.3rem" }} />{" "}
-            {isUser ? "Google Login" : "Sign up with Google"}
+          <button className="google-btn" onClick={handleGoogleSignIn}>
+            <FcGoogle style={{ marginRight: "1rem", marginTop: "-0.3rem" }} />
+            Google
           </button>
           <p className="login-bottom-text">
             {isUser ? "Don't have an account?" : "Already an user?"}{" "}

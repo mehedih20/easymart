@@ -49,6 +49,11 @@ button {
   transition: 0.5s all ease;
 }
 
+.header-top-right {
+  display: flex;
+  align-items: center;
+}
+
 .header-top-right button {
   margin-left: 2rem;
   font-size: 1.6rem;
@@ -60,6 +65,14 @@ button {
 
 .header-top button:hover {
   color: var(--color-primary);
+}
+
+.header-top-right p {
+  background-color: var(--color-primary-light);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-left: 2rem;
+  font-family: var(--font-jose);
 }
 
 /*--------- Header navigation --------*/

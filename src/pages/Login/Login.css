@@ -6,6 +6,7 @@
   color: var(--color-dark);
   font-family: var(--font-jose);
   width: 50rem;
+  margin: 0 5rem 10rem 0;
 }
 
 .login-container h2 {

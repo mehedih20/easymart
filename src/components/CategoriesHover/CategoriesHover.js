@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./CategoriesHover.css";
 import { GiImbricatedArrows } from "react-icons/gi";
-import { useNavigate } from "react-router-dom";
 
 const links = [
   {
@@ -48,8 +47,6 @@ const links = [
 ];
 
 const CategoriesHover = ({ showCategories }) => {
-  const navigate = useNavigate();
-
   return (
     <div className={`category-container ${showCategories && "show-container"}`}>
       {links.map((linkItem, index) => {

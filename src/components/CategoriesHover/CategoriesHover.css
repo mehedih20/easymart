@@ -1,0 +1,26 @@
+.category-container {
+  position: absolute;
+  top: 4rem;
+  background-color: var(--color-white);
+  border-radius: 0.5rem;
+  width: 50rem;
+  padding: 2rem;
+  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  z-index: 1;
+  visibility: hidden;
+}
+
+.category-container a {
+  text-decoration: none;
+  color: var(--color-dark);
+  font-size: 1.8rem;
+  text-align: left;
+  transition: 0.5s color ease;
+}
+
+.show-container {
+  visibility: unset;
+}

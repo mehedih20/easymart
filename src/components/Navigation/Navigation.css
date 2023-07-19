@@ -1,0 +1,95 @@
+/*--------- Header top -----------*/
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-top-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-top-left img {
+  transform: scale(0.8);
+}
+
+button {
+  background-color: transparent;
+  border: transparent;
+}
+
+.header-top-search {
+  border: 1px solid var(--color-primary);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 30vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-top-search input {
+  border: transparent;
+  font-size: 1.6rem;
+  font-family: var(--font-jose);
+  letter-spacing: 1px;
+  outline: none;
+  width: 90%;
+  color: var(--color-dark);
+  font-weight: 300;
+}
+
+.header-top-search button {
+  font-size: 2rem;
+  margin: 0.2rem 0.5rem 0 0;
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: 0.5s all ease;
+}
+
+.header-top-right button {
+  margin-left: 2rem;
+  font-size: 1.6rem;
+  font-family: var(--font-jose);
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: 0.5s all ease;
+}
+
+.header-top button:hover {
+  color: var(--color-primary);
+}
+
+/*--------- Header navigation --------*/
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-grey-light);
+  border-bottom: 1px solid var(--color-grey-light);
+  margin-bottom: 5rem;
+}
+
+.header-nav > * {
+  margin: 0 2.5rem 0 2.5rem;
+  text-decoration: none;
+  color: var(--color-dark);
+  font-family: var(--font-jose);
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.8s all ease;
+}
+
+.header-nav a:hover {
+  color: var(--color-primary);
+}
+
+.header-nav button {
+  position: relative;
+}

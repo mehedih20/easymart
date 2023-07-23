@@ -1,0 +1,131 @@
+.new-container {
+  margin-bottom: 10rem;
+}
+
+.new-title {
+  margin: 2rem 0 3rem;
+  font-family: var(--font-open);
+  font-weight: 300;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  color: var(--color-dark);
+}
+
+.new-title span {
+  color: #d73605;
+  margin-top: 0.7rem;
+  margin-left: 0.5rem;
+}
+
+.newproduct-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 5rem;
+  margin: 0 10rem;
+}
+
+.product-box {
+  box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  font-family: var(--font-jose);
+  padding: 1rem;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--color-primary-light);
+}
+
+.product-img {
+  width: 18rem;
+  height: 20rem;
+  overflow: hidden;
+  margin: 5rem auto 2rem;
+}
+
+.product-img img {
+  width: 100%;
+  display: block;
+}
+
+.deal {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-primary-light);
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  color: var(--color-primary-dark);
+  clip-path: polygon(78% 0, 100% 50%, 78% 100%, 0 100%, 0% 50%, 0 0);
+  margin-left: -0.5rem;
+  z-index: 1;
+}
+
+.product-ctg {
+  background-color: #19b0b0;
+  display: inline-block;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.5rem;
+  font-family: var(--font-jose);
+  color: var(--color-white);
+  margin-bottom: 1.5rem;
+}
+
+.product-title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--color-dark);
+}
+
+.product-rating {
+  margin-bottom: 1rem;
+  color: #f3c726;
+  letter-spacing: 2px;
+  font-size: 1.8rem;
+}
+
+.product-box-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-box-bottom-price {
+  display: flex;
+  align-items: center;
+}
+
+.product-price {
+  margin-right: 1rem;
+  font-size: 2.2rem;
+  color: var(--color-primary);
+}
+
+.product-old-price {
+  color: var(--color-dark);
+  font-size: 1.8rem;
+  text-decoration: line-through;
+}
+
+.product-box-bottom-btn {
+  cursor: pointer;
+  background-color: var(--color-primary-light);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  font-family: inherit;
+  color: var(--color-dark);
+  transition: all 0.3s ease;
+}
+
+.product-box-bottom-btn:hover {
+  background-color: var(--color-primary);
+}
+
+.bg-green {
+  background-color: #64c564 !important;
+  color: var(--color-white) !important;
+}
+.bg-blue {
+  color: var(--color-white) !important;
+  background-color: #7ebedb !important;
+}

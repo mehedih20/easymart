@@ -11,6 +11,11 @@ import About from "./pages/About/About";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import Cart from "./pages/Cart/Cart";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import AddProduct from "./pages/Dashboard/AddProduct/AddProduct";
+import ManageProduct from "./pages/Dashboard/ManageProduct/ManageProduct";
+import ManageAdmin from "./pages/Dashboard/ManageAdmin/ManageAdmin";
+import ProtectedRoute from "./Protected/ProtectedRoute";
 
 const App = () => {
   return (
@@ -25,6 +30,18 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard/addProduct" element={<AddProduct />} />
+          <Route path="/dashboard/manageProduct" element={<ManageProduct />} />
+          <Route path="/dashboard/manageAdmin" element={<ManageAdmin />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

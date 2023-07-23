@@ -54,7 +54,7 @@ const Navigation = () => {
                 <AiOutlineLogin /> Login / Sign up
               </button>
             )}
-            {user && <p>{user.email}</p>}
+            {user && <p>{user.name}</p>}
           </div>
         </div>
         <nav className="header-nav">
@@ -70,6 +70,7 @@ const Navigation = () => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/blogs">Blogs</NavLink>
           <NavLink to="/contact">Contact</NavLink>
+          {user && <NavLink to="/dashboard">Dashboard</NavLink>}
         </nav>
       </div>
     </header>

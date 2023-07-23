@@ -10,7 +10,7 @@ const links = [
   },
   {
     id: 2,
-    title: "Wines & Drinks",
+    title: "Bevereges & Drinks",
   },
   {
     id: 3,

@@ -1,0 +1,66 @@
+.addproduct-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2rem 5rem 0;
+}
+
+.addproduct-form {
+  width: max-content;
+}
+
+.addproduct-container h2 {
+  font-size: 2rem;
+  font-family: var(--font-jose);
+  color: var(--color-dark);
+  margin-bottom: 2rem;
+}
+
+.addproduct-form-container {
+  display: flex;
+}
+
+.form-left p {
+  font-family: var(--font-jose);
+  color: var(--color-dark);
+  font-size: 1.8rem;
+  margin-bottom: 4rem;
+}
+.form-left p:first-of-type {
+  margin-top: 1rem;
+}
+
+.form-right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+}
+
+.form-right > * {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid var(--color-primary-light);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
+  outline: none;
+  font-family: var(--font-jose);
+  color: var(--color-dark);
+  font-size: 1.6rem;
+  width: 30rem;
+}
+
+.addproduct-form-btn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 1.6rem;
+  font-family: var(--font-jose);
+  padding: 1.5rem;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.5s ease;
+}
+
+.addproduct-form-btn:hover {
+  background-color: var(--color-primary-dark);
+}

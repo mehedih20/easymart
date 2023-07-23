@@ -6,7 +6,7 @@
   color: var(--color-dark);
   font-family: var(--font-jose);
   width: 50rem;
-  margin: 0 5rem 10rem 0;
+  margin: 2rem auto 5rem;
 }
 
 .login-container h2 {
@@ -74,4 +74,13 @@
   font-family: var(--font-jose);
   color: teal;
   cursor: pointer;
+}
+
+.login-form span {
+  background-color: #ff2171;
+  align-self: center;
+  display: inline-block;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: var(--color-white);
 }

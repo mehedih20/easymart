@@ -1,0 +1,42 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 5rem;
+}
+
+.dashboard-nav {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-primary-light);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  height: fit-content;
+  margin-bottom: 5rem;
+}
+
+.dashboard-nav a {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 2rem 4rem;
+  font-size: 1.8rem;
+  font-family: var(--font-jose);
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.5s ease;
+}
+
+.dashboard-nav a:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.dasboard-welcome h2 {
+  color: var(--color-dark);
+  font-size: 2rem;
+  font-family: var(--font-jose);
+  line-height: 1.6;
+}
+
+.dasboard-welcome h2 span {
+  color: var(--color-primary);
+  font-size: 3rem;
+}

@@ -108,7 +108,7 @@ const ManageModal = ({ showModal, setShowModal }) => {
                     <option value="Pet Foods & Toy">Pet Foods & Toy</option>
                     <option value="Fast food">Fast food</option>
                     <option value="Snacks">Snacks</option>
-                    <option value="Baking material">Baking material</option>
+                    <option value="Electronics">Electronics</option>
                     <option value="Vegetables">Vegetables</option>
                     <option value="Fresh fruits">Fresh fruits</option>
                     <option value="Bread juice">Bread juice</option>

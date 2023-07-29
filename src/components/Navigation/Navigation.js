@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import headerlogo from "../../assets/EasyMart_logo.png";
-import { BsCartCheck, BsCart, BsChevronDown } from "react-icons/bs";
+import { BsCartCheck, BsCart, BsChevronDown, BsFire } from "react-icons/bs";
 import {
   AiOutlineLogin,
   AiOutlineSearch,
@@ -66,7 +66,9 @@ const Navigation = () => {
             <CategoriesHover showCategories={showCategories} />
           </button>
           <NavLink to="/">Home</NavLink>
-          <NavLink to="/deals">Deals</NavLink>
+          <NavLink to="/deals">
+            <BsFire className="deal-icon" /> Deals
+          </NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/blogs">Blogs</NavLink>
           <NavLink to="/contact">Contact</NavLink>

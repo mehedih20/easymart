@@ -1,10 +1,14 @@
 import React from "react";
-import New from "./Body/New/New";
+import NewProducts from "./Body/NewProducts/NewProducts";
+import OnSale from "./Body/OnSale/OnSale";
+import Hot from "./Body/Hot/Hot";
 
 const Home = () => {
   return (
     <div className="container home-container">
-      <New />
+      <Hot />
+      <OnSale />
+      <NewProducts />
     </div>
   );
 };

@@ -16,6 +16,7 @@ import AddProduct from "./pages/Dashboard/AddProduct/AddProduct";
 import ManageProduct from "./pages/Dashboard/ManageProduct/ManageProduct";
 import ManageAdmin from "./pages/Dashboard/ManageAdmin/ManageAdmin";
 import ProtectedRoute from "./Protected/ProtectedRoute";
+import ManageOrders from "./pages/Dashboard/ManageOrders/ManageOrders";
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/dashboard/addProduct" element={<AddProduct />} />
           <Route path="/dashboard/manageProduct" element={<ManageProduct />} />
           <Route path="/dashboard/manageAdmin" element={<ManageAdmin />} />
+          <Route path="/dashboard/manageOrders" element={<ManageOrders />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

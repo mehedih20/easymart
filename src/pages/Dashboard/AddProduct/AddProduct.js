@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./AddProduct.css";
-import useGlobalContext from "../../../hooks/useGlobalContext";
+import ReactLoader from "../../../components/ReactLoading/ReactLoader";
 
 const AddProduct = () => {
+  const [addNotificationText, setAddNotificationText] = useState("");
+  const [showNotification, setShowNotification] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+
   const [item1, setItem1] = useState("");
   const [item2, setItem2] = useState("");
   const [item3, setItem3] = useState("");
@@ -23,6 +27,7 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setAddLoading(true);
     const newItem = {
       category: item1,
       name: item2,
@@ -44,18 +49,28 @@ const AddProduct = () => {
         .then((res) => res.json())
         .then((data) => {
           resetForm();
-          console.log(data);
+          setAddLoading(false);
+          setAddNotificationText("Product successfully added");
+          setShowNotification(true);
         });
     } else {
+      setAddLoading(false);
       console.log("Not all field were filled properly");
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowNotification(false);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [showNotification]);
+
   return (
-    <div className="addproduct-container">
+    <div className="addProduct-container">
       <h2>Add Product</h2>
-      <form className="addproduct-form" onSubmit={handleSubmit}>
-        <div className="addproduct-form-container">
+      <form className="addProduct-form" onSubmit={handleSubmit}>
+        <div className="addProduct-form-container">
           <div className="form-left">
             <p>Category</p>
             <p>Name</p>
@@ -83,7 +98,7 @@ const AddProduct = () => {
               <option value="Pet Foods & Toy">Pet Foods & Toy</option>
               <option value="Fast food">Fast food</option>
               <option value="Snacks">Snacks</option>
-              <option value="Baking material">Baking material</option>
+              <option value="Electronics">Electronics</option>
               <option value="Vegetables">Vegetables</option>
               <option value="Fresh fruits">Fresh fruits</option>
               <option value="Bread juice">Bread juice</option>
@@ -134,8 +149,15 @@ const AddProduct = () => {
             </select>
           </div>
         </div>
-        <button type="submit" className="addproduct-form-btn">
-          Submit
+        <p
+          className={`addProduct-notification ${
+            showNotification && "addProduct-notification-show"
+          }`}
+        >
+          {addNotificationText}
+        </p>
+        <button type="submit" className="addProduct-form-btn">
+          {addLoading ? <ReactLoader type={"spin"} color={"blue"} /> : "Submit"}
         </button>
       </form>
     </div>

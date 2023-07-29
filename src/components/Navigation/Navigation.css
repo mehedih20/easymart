@@ -106,3 +106,8 @@ button {
 .header-nav button {
   position: relative;
 }
+
+.deal-icon {
+  color: #d23b15;
+  margin-top: -0.5rem;
+}

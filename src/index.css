@@ -1,5 +1,5 @@
 /* Imported fonts link */
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Open+Sans:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Open+Sans:wght@300;400;700&family=Quicksand:wght@300;400;500;600;700&display=swap");
 
 /* Root variables */
 :root {
@@ -15,6 +15,7 @@
   /* fonts */
   --font-open: "Open Sans", sans-serif;
   --font-jose: "Josefin Sans", sans-serif;
+  --font-quick: "Quicksand", sans-serif;
 }
 
 * {
@@ -48,4 +49,14 @@ a {
   max-width: 160rem;
   margin-left: calc((100vw - 160rem) / 2);
   margin-right: calc((100vw - 160rem) / 2);
+}
+
+.bg-light-green {
+  background-color: #e6ffe1;
+}
+.bg-light-red {
+  background-color: #ffeeea;
+}
+.bg-light-blue {
+  background-color: #e2efff;
 }

@@ -30,7 +30,7 @@ const links = [
   },
   {
     id: 7,
-    title: "Baking material",
+    title: "Electronics",
   },
   {
     id: 8,

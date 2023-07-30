@@ -1,0 +1,14 @@
+.category-title {
+  padding: 2rem 1rem;
+  font-size: 1.6rem;
+  font-family: var(--font-quick);
+  color: var(--color-dark);
+  font-weight: 300;
+  margin-bottom: 10rem;
+}
+
+.category-title span {
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--color-primary);
+}

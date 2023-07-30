@@ -1,0 +1,116 @@
+.banner-container {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10rem;
+}
+
+.banner-slider {
+  position: relative;
+  width: 100%;
+  height: 53rem;
+  border-radius: 2rem;
+}
+
+.banner-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.banner-slide img {
+  width: 100%;
+  height: 100%;
+}
+
+.translate-neg {
+  transform: translateX(-100%);
+}
+
+.translate-pos {
+  transform: translateX(100%);
+}
+
+.banner-btn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  z-index: 10;
+  justify-content: space-between;
+}
+.banner-btn button {
+  cursor: pointer;
+  padding: 1.5rem;
+  margin: 1rem;
+  background-color: #dfb18a;
+  opacity: 0.8;
+  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+  color: var(--color-white);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.dots span {
+  margin: 0 0.2rem;
+  color: #c7c7c7;
+  transition: all 0.8s ease;
+}
+
+.dot-active {
+  color: #d57521 !important;
+}
+
+.banner-subscribe {
+  position: absolute;
+  top: 65%;
+  left: 6.5rem;
+  background-color: var(--color-white);
+  width: 50rem;
+  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.banner-subscribe svg {
+  color: var(--color-dark);
+  margin: -0.5rem 1rem 0 2.5rem;
+  font-size: 1.8rem;
+}
+
+.banner-subscribe input {
+  width: 60%;
+  font-size: 1.6rem;
+  font-family: var(--font-jose);
+  color: var(--color-dark);
+  outline: none;
+  border: none;
+}
+
+.subs-btn {
+  background-color: #7f1cbc;
+  padding: 2rem;
+  font-family: var(--font-jose);
+  font-size: 1.6rem;
+  border-radius: 2rem;
+  color: var(--color-white);
+  margin-left: auto;
+}

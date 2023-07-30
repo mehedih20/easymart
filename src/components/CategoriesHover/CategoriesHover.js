@@ -30,19 +30,19 @@ const links = [
   },
   {
     id: 7,
-    title: "Electronics",
+    title: "Snacks",
   },
   {
     id: 8,
-    title: "Vegetables",
+    title: "Electronics",
   },
   {
     id: 9,
-    title: "Fresh fruits",
+    title: "Vegetables",
   },
   {
     id: 10,
-    title: "Bread juice",
+    title: "Fresh fruits",
   },
 ];
 

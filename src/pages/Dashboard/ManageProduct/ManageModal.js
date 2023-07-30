@@ -77,10 +77,10 @@ const ManageModal = ({ showModal, setShowModal }) => {
     <div className={`manage-modal-container ${!showModal && "modal-hide"}`}>
       {editItem && (
         <div className="manage-modal">
-          <div className="addproduct-container">
+          <div className="addProduct-container">
             <h2>Edit Product</h2>
-            <form className="addproduct-form" onSubmit={handleSubmit}>
-              <div className="addproduct-form-container">
+            <form className="addProduct-form" onSubmit={handleSubmit}>
+              <div className="addProduct-form-container">
                 <div className="form-left">
                   <p>Category</p>
                   <p>Name</p>
@@ -111,7 +111,6 @@ const ManageModal = ({ showModal, setShowModal }) => {
                     <option value="Electronics">Electronics</option>
                     <option value="Vegetables">Vegetables</option>
                     <option value="Fresh fruits">Fresh fruits</option>
-                    <option value="Bread juice">Bread juice</option>
                   </select>
                   <input
                     type="text"
@@ -155,7 +154,7 @@ const ManageModal = ({ showModal, setShowModal }) => {
                   </select>
                 </div>
               </div>
-              <button type="submit" className="addproduct-form-btn">
+              <button type="submit" className="addProduct-form-btn">
                 {isLoading ? (
                   <ReactLoader type={"spin"} color={"red"} />
                 ) : (
@@ -163,7 +162,7 @@ const ManageModal = ({ showModal, setShowModal }) => {
                 )}
               </button>
               <button
-                className="addproduct-form-btn modal-cancel-btn"
+                className="addProduct-form-btn modal-cancel-btn"
                 onClick={handleCancel}
               >
                 Cancel

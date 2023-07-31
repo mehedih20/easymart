@@ -1,6 +1,7 @@
 .category-container {
   position: absolute;
-  top: 4rem;
+  top: 5rem;
+  left: 0;
   background-color: var(--color-white);
   border-radius: 0.5rem;
   width: 50rem;

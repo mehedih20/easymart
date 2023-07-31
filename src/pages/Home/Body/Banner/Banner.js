@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Banner.css";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BiSolidCircle } from "react-icons/bi";
-import { FaRegPaperPlane } from "react-icons/fa";
 import bannerImg1 from "../../../../assets/Banner/Slide1.webp";
 import bannerImg2 from "../../../../assets/Banner/Slide2.webp";
+import SubscribeInputBtn from "../../../../components/SubscribeInputBtn/SubscribeInputBtn";
 
 const Banner = () => {
   const [left, setLeft] = useState("");
@@ -62,9 +62,7 @@ const Banner = () => {
         </span>
       </div>
       <div className="banner-subscribe">
-        <FaRegPaperPlane />
-        <input type="text" placeholder="Your email address" />
-        <button className="subs-btn">Subscribe</button>
+        <SubscribeInputBtn />
       </div>
       <div className="banner-btn">
         <button onClick={leftBtn}>{<AiOutlineLeft />}</button>

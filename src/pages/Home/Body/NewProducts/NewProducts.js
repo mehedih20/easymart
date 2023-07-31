@@ -12,7 +12,7 @@ const NewProducts = () => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => {
-        const newData = data.filter((item) => item.deal === "New");
+        const newData = data.filter((item) => item.deal === "New").slice(0, 10);
         setProducts(newData);
         setProductLoading(false);
       })

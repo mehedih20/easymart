@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import headerlogo from "../../assets/EasyMart_logo.png";
-import { BsCartCheck, BsCart, BsChevronDown, BsFire } from "react-icons/bs";
+import headerlogo from "../../assets/EasyMart-logo.webp";
+import {
+  BsCartCheck,
+  BsCart,
+  BsChevronDown,
+  BsFire,
+  BsHeadphones,
+} from "react-icons/bs";
 import {
   AiOutlineLogin,
   AiOutlineSearch,
   AiOutlineLogout,
 } from "react-icons/ai";
+import { BiCategory } from "react-icons/bi";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import CategoriesHover from "../CategoriesHover/CategoriesHover";
@@ -58,21 +65,32 @@ const Navigation = () => {
           </div>
         </div>
         <nav className="header-nav">
-          <button
-            style={{ color: "var(--color-primary)" }}
-            onClick={() => setShowCategories(!showCategories)}
-          >
-            Categories <BsChevronDown />{" "}
-            <CategoriesHover showCategories={showCategories} />
-          </button>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/deals">
-            <BsFire className="deal-icon" /> Deals
-          </NavLink>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/blogs">Blogs</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-          {user && <NavLink to="/dashboard">Dashboard</NavLink>}
+          <div className="header-nav-left">
+            <button
+              className="header-nav-left-btn"
+              style={{ color: "var(--color-primary)" }}
+              onClick={() => setShowCategories(!showCategories)}
+            >
+              <BiCategory style={{ marginRight: "1rem" }} /> Categories{" "}
+              <BsChevronDown />{" "}
+              <CategoriesHover showCategories={showCategories} />
+            </button>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/deals">
+              <BsFire className="deal-icon" /> Deals
+            </NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink to="/blogs">Blogs</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+            {user && <NavLink to="/dashboard">Dashboard</NavLink>}
+          </div>
+          <div className="header-nav-right">
+            <BsHeadphones />
+            <div className="header-nav-right-text">
+              <p>+123-444-555</p>
+              <small>24/7 Support Center</small>
+            </div>
+          </div>
         </nav>
       </div>
     </header>

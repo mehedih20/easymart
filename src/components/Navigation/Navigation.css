@@ -21,7 +21,8 @@ button {
 }
 
 .header-top-search {
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--color-primary-light);
+  box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.1);
   padding: 1rem;
   border-radius: 0.5rem;
   width: 30vw;
@@ -76,19 +77,23 @@ button {
 }
 
 /*--------- Header navigation --------*/
-
 .header-nav {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
+  justify-content: space-between;
   border-top: 1px solid var(--color-grey-light);
   border-bottom: 1px solid var(--color-grey-light);
   margin-bottom: 5rem;
+  padding: 1.5rem 2.5rem;
 }
 
-.header-nav > * {
-  margin: 0 2.5rem 0 2.5rem;
+.header-nav-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-nav-left a {
+  margin: 0 2rem 0 2rem;
   text-decoration: none;
   color: var(--color-dark);
   font-family: var(--font-jose);
@@ -99,15 +104,52 @@ button {
   transition: 0.8s all ease;
 }
 
-.header-nav a:hover {
+.header-nav-left a:hover {
   color: var(--color-primary);
 }
 
-.header-nav button {
+.header-nav-left-btn {
   position: relative;
+  font-family: var(--font-jose);
+  font-size: 1.8rem;
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+  padding: 1rem 3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+.header-nav-left-btn:hover {
+  background-color: var(--color-primary-dark);
 }
 
 .deal-icon {
   color: #d23b15;
   margin-top: -0.5rem;
+}
+
+.header-nav-right {
+  display: flex;
+}
+
+.header-nav-right svg {
+  font-size: 3rem;
+  margin-right: 1rem;
+  color: var(--color-dark);
+  margin-top: -0.3rem;
+}
+
+.header-nav-right-text p {
+  color: var(--color-primary);
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.header-nav-right small {
+  font-size: 1.3rem;
+  color: var(--color-grey);
 }

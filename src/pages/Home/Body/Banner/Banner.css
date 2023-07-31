@@ -81,36 +81,4 @@
   position: absolute;
   top: 65%;
   left: 6.5rem;
-  background-color: var(--color-white);
-  width: 50rem;
-  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
-  margin: 2rem;
-  border-radius: 2rem;
-  display: flex;
-  align-items: center;
-}
-
-.banner-subscribe svg {
-  color: var(--color-dark);
-  margin: -0.5rem 1rem 0 2.5rem;
-  font-size: 1.8rem;
-}
-
-.banner-subscribe input {
-  width: 60%;
-  font-size: 1.6rem;
-  font-family: var(--font-jose);
-  color: var(--color-dark);
-  outline: none;
-  border: none;
-}
-
-.subs-btn {
-  background-color: #7f1cbc;
-  padding: 2rem;
-  font-family: var(--font-jose);
-  font-size: 1.6rem;
-  border-radius: 2rem;
-  color: var(--color-white);
-  margin-left: auto;
 }

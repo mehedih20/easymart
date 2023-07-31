@@ -12,7 +12,9 @@ const OnSale = () => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => {
-        const newData = data.filter((item) => item.deal === "Sale");
+        const newData = data
+          .filter((item) => item.deal === "Sale")
+          .slice(0, 10);
         setProducts(newData);
         setProductLoading(false);
       })

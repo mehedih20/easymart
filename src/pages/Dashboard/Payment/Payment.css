@@ -1,0 +1,9 @@
+.payment p {
+  text-align: center;
+  font-size: 2rem;
+  font-family: var(--font-quick);
+  color: var(--color-grey);
+  letter-spacing: 1px;
+  font-style: italic;
+  line-height: 1.6;
+}

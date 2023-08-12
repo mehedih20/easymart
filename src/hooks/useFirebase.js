@@ -17,19 +17,43 @@ initializeAuthentication();
 const useFirebase = () => {
   const [notification, setNotification] = useState(null);
   const [user, setUser] = useState(null);
+  const [reloadLoading, setReloadLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
 
+  const createUserInDB = (person) => {
+    fetch("http://localhost:5000/users", {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(person),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(person);
+      });
+  };
+
   const googleSignIn = (navigate, location) => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
-        console.log(result);
         const person = {
           name: result.user.displayName,
           email: result.user.email,
+          role: "",
         };
-        setUser(person);
+        fetch("http://localhost:5000/users")
+          .then((res) => res.json())
+          .then((data) => {
+            const result = data.filter((item) => item.email === person.email);
+            if (result.length === 0) {
+              createUserInDB(person);
+            } else {
+              setNotification("User already exist with same email!");
+            }
+          });
         navigate(location);
       })
       .catch((error) => console.log(error.message));
@@ -37,20 +61,30 @@ const useFirebase = () => {
 
   const createNewUser = (username, email, password) => {
     setLoading(true);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((result) => {
-        updateProfile(auth.currentUser, {
-          displayName: username,
-        })
-          .then(() => {
-            sendEmailVerification(auth.currentUser)
-              .then(() => setNotification("Email verification sent"))
-              .catch((error) => console.log(error));
-            setLoading(false);
-          })
-          .catch((error) => console.log(error));
-      })
-      .catch((error) => console.log(error));
+    fetch("http://localhost:5000/users")
+      .then((res) => res.json())
+      .then((data) => {
+        const result = data.filter((item) => item.email === email);
+        if (result.length === 0) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+              updateProfile(auth.currentUser, {
+                displayName: username,
+              })
+                .then(() => {
+                  sendEmailVerification(auth.currentUser)
+                    .then(() => setNotification("Email verification sent"))
+                    .catch((error) => console.log(error));
+                  setLoading(false);
+                })
+                .catch((error) => console.log(error));
+            })
+            .catch((error) => console.log(error));
+        } else {
+          setNotification("User already exist with the same email!");
+          setLoading(false);
+        }
+      });
   };
 
   const signInUser = (email, password, navigate, location) => {
@@ -62,12 +96,16 @@ const useFirebase = () => {
           setLoading(false);
           return;
         }
-        const person = {
-          name: result.user.displayName,
-          email: result.user.email,
-        };
+        if (result.user.emailVerified === true) {
+          const person = {
+            name: result.user.displayName,
+            email: result.user.email,
+            role: "",
+          };
+          createUserInDB(person);
+        }
+
         setLoading(false);
-        setUser(person);
         navigate(location);
       })
       .catch((error) => console.log(error.message));
@@ -86,10 +124,11 @@ const useFirebase = () => {
         const person = {
           name: user.displayName,
           email: user.email,
+          role: "",
         };
         setUser(person);
       }
-      setLoading(false);
+      setReloadLoading(false);
     });
     return () => unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,6 +144,7 @@ const useFirebase = () => {
     signInUser,
     loading,
     notification,
+    reloadLoading,
   };
 };
 

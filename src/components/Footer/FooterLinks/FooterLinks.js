@@ -89,13 +89,6 @@ const FooterLinks = () => {
           </div>
         </div>
       </div>
-      <div className="footer-bottom">
-        <span>
-          Copyright&copy; 2023 EasyMart | All rights reseverd | Coded by Mehedi
-          Hasan
-        </span>
-        <span>Helpline: +123-444-555 | +123-666-777</span>
-      </div>
     </>
   );
 };

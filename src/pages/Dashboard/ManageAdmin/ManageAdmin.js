@@ -11,7 +11,7 @@ const ManageAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`http://localhost:5000/users/${text}`)
+    fetch(`https://easymart-server.onrender.com/users/${text}`)
       .then((res) => res.json())
       .then((data) => {
         setFormUser(data);
@@ -23,7 +23,7 @@ const ManageAdmin = () => {
   };
 
   const fetchUpdatedUser = () => {
-    fetch(`http://localhost:5000/users/${formUser.email}`)
+    fetch(`https://easymart-server.onrender.com/users/${formUser.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -35,9 +35,12 @@ const ManageAdmin = () => {
 
   const makeAdmin = () => {
     setLoading(true);
-    fetch(`http://localhost:5000/user/makeAdmin/${formUser._id}`, {
-      method: "PUT",
-    })
+    fetch(
+      `https://easymart-server.onrender.com/user/makeAdmin/${formUser._id}`,
+      {
+        method: "PUT",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -48,9 +51,12 @@ const ManageAdmin = () => {
 
   const removeAdmin = () => {
     setLoading(true);
-    fetch(`http://localhost:5000/user/removeAdmin/${formUser._id}`, {
-      method: "PUT",
-    })
+    fetch(
+      `https://easymart-server.onrender.com/user/removeAdmin/${formUser._id}`,
+      {
+        method: "PUT",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {

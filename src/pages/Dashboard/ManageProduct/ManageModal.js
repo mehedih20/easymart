@@ -27,7 +27,7 @@ const ManageModal = ({ showModal, setShowModal }) => {
     };
     setIsLoading(true);
     if (setEditItem !== null) {
-      fetch(`http://localhost:5000/product/${editItem._id}`, {
+      fetch(`https://easymart-server.onrender.com/product/${editItem._id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

@@ -23,7 +23,7 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   const createUserInDB = (person) => {
-    fetch("http://localhost:5000/users", {
+    fetch("https://easymart-server.onrender.com/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -51,7 +51,7 @@ const useFirebase = () => {
 
   const createNewUser = (username, email, password) => {
     setLoading(true);
-    fetch(`http://localhost:5000/users/${email}`)
+    fetch(`https://easymart-server.onrender.com/users/${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data) {

@@ -11,7 +11,7 @@ const Category = () => {
 
   useEffect(() => {
     setCategoryLoading(true);
-    fetch("http://localhost:5000/products")
+    fetch("https://easymart-server.onrender.com/products")
       .then((res) => res.json())
       .then((data) => {
         const newData = data.filter((item) => item.category === catName);

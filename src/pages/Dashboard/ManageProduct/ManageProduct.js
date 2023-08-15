@@ -14,7 +14,7 @@ const ManageProduct = () => {
   };
 
   const handleDeleteProduct = (deleteId) => {
-    fetch(`http://localhost:5000/products/${deleteId}`, {
+    fetch(`https://easymart-server.onrender.com/products/${deleteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -24,7 +24,7 @@ const ManageProduct = () => {
   };
 
   useEffect(() => {
-    const fetching = fetch("http://localhost:5000/products")
+    const fetching = fetch("https://easymart-server.onrender.com/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

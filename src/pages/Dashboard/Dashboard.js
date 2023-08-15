@@ -20,7 +20,7 @@ const Dashboard = () => {
   const loaction = useLocation();
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://easymart-server.onrender.com/products")
       .then((res) => res.json())
       .then((data) => {
         const newData = data.reverse().slice(0, 4);
@@ -29,7 +29,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user.email}`)
+    fetch(`https://easymart-server.onrender.com/users/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setDashboardUser(data);

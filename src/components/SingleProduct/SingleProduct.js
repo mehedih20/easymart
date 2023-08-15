@@ -22,6 +22,10 @@ const SingleProduct = () => {
   };
 
   const addToCart = () => {
+    if (!user) {
+      setNotification("You must login into your account first!");
+      return;
+    }
     if (productQuantity < 1) {
       setNotification("Invalid action. Quantity cannot be 0!");
       return;
@@ -34,7 +38,7 @@ const SingleProduct = () => {
       productPrice: product.price,
       productImg: product.imgUrl,
     };
-    fetch(`http://localhost:5000/user/cart/${user.email}`, {
+    fetch(`https://easymart-server.onrender.com/user/cart/${user.email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -60,7 +64,8 @@ const SingleProduct = () => {
   }, [notification]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products/${productId}`)
+    window.scrollTo(0, 0);
+    fetch(`https://easymart-server.onrender.com/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
@@ -133,6 +138,9 @@ const SingleProduct = () => {
                 onClick={() => navigate("/cart")}
               >
                 Cart
+              </button>
+              <button className="addCart-btn" onClick={() => navigate(-1)}>
+                Back
               </button>
             </div>
           </>

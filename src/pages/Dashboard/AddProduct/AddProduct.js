@@ -39,7 +39,7 @@ const AddProduct = () => {
     };
 
     if (Object.keys(newItem).length !== 0) {
-      fetch("http://localhost:5000/products", {
+      fetch("https://easymart-server.onrender.com/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",

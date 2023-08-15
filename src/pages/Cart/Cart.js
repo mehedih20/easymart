@@ -16,13 +16,16 @@ const Cart = () => {
 
   const removeCartItem = (item) => {
     setCartLoading(true);
-    fetch(`http://localhost:5000/user/cart/removeItem/${user.email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(item),
-    })
+    fetch(
+      `https://easymart-server.onrender.com/user/cart/removeItem/${user.email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(item),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setCartLoading(false);
@@ -39,7 +42,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/users/${user.email}`)
+      fetch(`https://easymart-server.onrender.com/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setCartItems(data.cart);
@@ -167,7 +170,7 @@ const ConfirmModal = ({ userEmail, cartItems, setModalOpen }) => {
     setConfirmLoading(true);
 
     orders.forEach((item) => {
-      fetch("http://localhost:5000/orders", {
+      fetch("https://easymart-server.onrender.com/orders", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -181,9 +184,12 @@ const ConfirmModal = ({ userEmail, cartItems, setModalOpen }) => {
         .catch((error) => console.error(error));
     });
 
-    fetch(`http://localhost:5000/cart/orderConfirmed/${userEmail}`, {
-      method: "PUT",
-    })
+    fetch(
+      `https://easymart-server.onrender.com/cart/orderConfirmed/${userEmail}`,
+      {
+        method: "PUT",
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setConfirmLoading(false);

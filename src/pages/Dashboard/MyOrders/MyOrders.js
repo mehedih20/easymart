@@ -7,7 +7,7 @@ const MyOrders = ({ dashboardUser }) => {
 
   const approveOrder = (id) => {
     setLoading(true);
-    fetch(`http://localhost:5000/orders/${id}`, {
+    fetch(`https://easymart-server.onrender.com/orders/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -17,7 +17,7 @@ const MyOrders = ({ dashboardUser }) => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/orders")
+    fetch(`https://easymart-server.onrender.com/orders/${dashboardUser.email}`)
       .then((res) => res.json())
       .then((data) => setOrderData(data));
   }, [approveOrder]);

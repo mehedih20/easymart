@@ -19,6 +19,7 @@ import ProtectedRoute from "./Protected/ProtectedRoute";
 import ManageOrders from "./pages/Dashboard/ManageOrders/ManageOrders";
 import MyOrders from "./pages/Dashboard/MyOrders/MyOrders";
 import Payment from "./pages/Dashboard/Payment/Payment";
+import SingleProduct from "./components/SingleProduct/SingleProduct";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:catName" element={<Category />} />
+        <Route path="/product/:productId" element={<SingleProduct />} />
         <Route path="/deals" element={<Deals />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blogs" element={<Blogs />} />

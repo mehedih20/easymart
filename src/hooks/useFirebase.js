@@ -42,18 +42,8 @@ const useFirebase = () => {
         const person = {
           name: result.user.displayName,
           email: result.user.email,
-          role: "",
         };
-        fetch("http://localhost:5000/users")
-          .then((res) => res.json())
-          .then((data) => {
-            const result = data.filter((item) => item.email === person.email);
-            if (result.length === 0) {
-              createUserInDB(person);
-            } else {
-              setNotification("User already exist with same email!");
-            }
-          });
+        createUserInDB(person);
         navigate(location);
       })
       .catch((error) => console.log(error.message));
@@ -61,11 +51,10 @@ const useFirebase = () => {
 
   const createNewUser = (username, email, password) => {
     setLoading(true);
-    fetch("http://localhost:5000/users")
+    fetch(`http://localhost:5000/users/${email}`)
       .then((res) => res.json())
       .then((data) => {
-        const result = data.filter((item) => item.email === email);
-        if (result.length === 0) {
+        if (!data) {
           createUserWithEmailAndPassword(auth, email, password)
             .then((result) => {
               updateProfile(auth.currentUser, {
@@ -100,7 +89,6 @@ const useFirebase = () => {
           const person = {
             name: result.user.displayName,
             email: result.user.email,
-            role: "",
           };
           createUserInDB(person);
         }
@@ -124,7 +112,6 @@ const useFirebase = () => {
         const person = {
           name: user.displayName,
           email: user.email,
-          role: "",
         };
         setUser(person);
       }

@@ -9,8 +9,10 @@ const Footer = () => {
     <div style={{ marginTop: "auto" }} className="container">
       {location.pathname.slice(0, 10) !== "/dashboard" && (
         <>
-          {location.pathname !== "/login" && <FooterSubscribe />}
-          <FooterLinks />
+          {location.pathname !== "/login" && location.pathname !== "/cart" && (
+            <FooterSubscribe />
+          )}
+          {location.pathname !== "/cart" && <FooterLinks />}
         </>
       )}
       <div className="footer-bottom">

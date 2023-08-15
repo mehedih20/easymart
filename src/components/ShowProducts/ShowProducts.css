@@ -78,9 +78,14 @@
 }
 
 .product-title {
+  cursor: pointer;
   font-size: 2.5rem;
   margin-bottom: 3rem;
   color: var(--color-dark);
+}
+
+.product-title:hover {
+  color: var(--color-green);
 }
 
 .product-rating {

@@ -2,8 +2,10 @@ import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { BsCart } from "react-icons/bs";
 import "./ShowProducts.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const ShowProducts = ({ title, products, page, icon, titleColor }) => {
+  const navigate = useNavigate();
   const reRating = (rating) => {
     const starArr = [];
     for (let i = 0; i < parseInt(rating); i++) {
@@ -48,7 +50,9 @@ const ShowProducts = ({ title, products, page, icon, titleColor }) => {
                   </span>
                 )}
                 <p className="product-ctg">{category}</p>
-                <p className="product-title">{name}</p>
+                <Link to={`/product/${_id}`} className="product-title">
+                  {name}
+                </Link>
                 <p className="product-rating">
                   {reRating(rating).map((item, index) => {
                     return <span key={index}>{item}</span>;
@@ -60,7 +64,10 @@ const ShowProducts = ({ title, products, page, icon, titleColor }) => {
                     <p className="product-old-price">{oldPrice}</p>
                   </div>
                   {page !== "dashboard" && (
-                    <button className="product-box-bottom-btn">
+                    <button
+                      className="product-box-bottom-btn"
+                      onClick={() => navigate(`/product/${_id}`)}
+                    >
                       <BsCart /> Add
                     </button>
                   )}

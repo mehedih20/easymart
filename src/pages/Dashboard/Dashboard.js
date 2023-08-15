@@ -18,7 +18,6 @@ const Dashboard = () => {
   const { firebase } = useGlobalContext();
   const { user } = firebase;
   const loaction = useLocation();
-  // console.log(user);
 
   useEffect(() => {
     fetch("http://localhost:5000/products")
@@ -30,13 +29,11 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch(`http://localhost:5000/users/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        const dbUser = data.filter((item) => item.email === user.email);
-        setDashboardUser(dbUser[0]);
+        setDashboardUser(data);
         setDashboardLoading(false);
-        console.log(dashboardUser);
       });
   }, []);
 
@@ -52,16 +49,24 @@ const Dashboard = () => {
         {dashboardUser && (
           <>
             <nav className="dashboard-nav">
-              {dashboardUser.role === "admin" ? (
+              {dashboardUser?.role === "administrator" && (
                 <>
                   <Link to="/dashboard/addProduct">Add Product</Link>
                   <Link to="/dashboard/manageAdmin">Manage Admin</Link>
                   <Link to="/dashboard/manageProduct">Manage Products</Link>
                   <Link to="/dashboard/manageOrders">Manage Orders</Link>
                 </>
-              ) : (
+              )}
+              {dashboardUser?.role === "admin" && (
                 <>
-                  <Link to="/dashboard/manageOrders">My Orders</Link>
+                  <Link to="/dashboard/addProduct">Add Product</Link>
+                  <Link to="/dashboard/manageProduct">Manage Products</Link>
+                  <Link to="/dashboard/manageOrders">Manage Orders</Link>
+                </>
+              )}
+              {!dashboardUser?.hasOwnProperty("role") && (
+                <>
+                  <Link to="/dashboard/myOrders">My Orders</Link>
                   <Link to="/dashboard/payment">Payment</Link>
                 </>
               )}
@@ -93,9 +98,11 @@ const Dashboard = () => {
                 <ManageAdmin />
               )}
               {loaction.pathname === "/dashboard/manageOrders" && (
-                <ManageOrders />
+                <ManageOrders dashboardUser={dashboardUser} />
               )}
-              {loaction.pathname === "/dashboard/myOrders" && <MyOrders />}
+              {loaction.pathname === "/dashboard/myOrders" && (
+                <MyOrders dashboardUser={dashboardUser} />
+              )}
               {loaction.pathname === "/dashboard/payment" && <Payment />}
             </div>
           </>

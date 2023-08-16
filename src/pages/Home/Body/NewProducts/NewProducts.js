@@ -9,7 +9,7 @@ const NewProducts = () => {
 
   useEffect(() => {
     setProductLoading(true);
-    fetch("https://easymart-server.onrender.com/products")
+    fetch("https://rich-gray-scallop-sari.cyclic.cloud/products")
       .then((res) => res.json())
       .then((data) => {
         const newData = data.filter((item) => item.deal === "New").slice(0, 10);

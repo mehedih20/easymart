@@ -27,13 +27,16 @@ const ManageModal = ({ showModal, setShowModal }) => {
     };
     setIsLoading(true);
     if (setEditItem !== null) {
-      fetch(`https://easymart-server.onrender.com/product/${editItem._id}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(editedItem),
-      })
+      fetch(
+        `https://rich-gray-scallop-sari.cyclic.cloud/product/${editItem._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(editedItem),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           setShowModal(false);

@@ -3,9 +3,11 @@ import "./SingleProduct.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 import useGlobalContext from "../../hooks/useGlobalContext";
+import ReactLoader from "../ReactLoading/ReactLoader";
 
 const SingleProduct = () => {
-  const [productQuantity, setProductQuantity] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [productQuantity, setProductQuantity] = useState(1);
   const [product, setProduct] = useState(null);
   const { productId } = useParams();
   const { firebase } = useGlobalContext();
@@ -38,13 +40,16 @@ const SingleProduct = () => {
       productPrice: product.price,
       productImg: product.imgUrl,
     };
-    fetch(`https://easymart-server.onrender.com/user/cart/${user.email}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newCartItem),
-    })
+    fetch(
+      `https://rich-gray-scallop-sari.cyclic.cloud/user/cart/${user.email}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newCartItem),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.acknowledged) {
@@ -65,19 +70,24 @@ const SingleProduct = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch(`https://easymart-server.onrender.com/products/${productId}`)
+    setLoading(true);
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);
+        setLoading(false);
       });
   }, []);
 
   return (
     <div className="container">
-      <h2 className="singleProduct-title">
-        <span>/{product?.category}/ </span>
-        {product?.name}
-      </h2>
+      {loading && <ReactLoader type={"spin"} color={"green"} />}
+      {product && (
+        <h2 className="singleProduct-title">
+          <span>/{product?.category}/ </span>
+          {product?.name}
+        </h2>
+      )}
       <div className="singleProduct-container">
         {product && (
           <>

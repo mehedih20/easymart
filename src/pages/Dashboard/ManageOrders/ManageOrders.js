@@ -8,7 +8,7 @@ const ManageOrders = ({ dashboardUser }) => {
 
   const approveOrder = (id) => {
     setLoading(true);
-    fetch(`https://easymart-server.onrender.com/orders/${id}`, {
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/orders/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -18,7 +18,7 @@ const ManageOrders = ({ dashboardUser }) => {
   };
 
   useEffect(() => {
-    fetch("https://easymart-server.onrender.com/orders")
+    fetch("https://rich-gray-scallop-sari.cyclic.cloud/orders")
       .then((res) => res.json())
       .then((data) => setOrderData(data));
   }, [approveOrder]);

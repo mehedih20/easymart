@@ -3,6 +3,7 @@ import useGlobalContext from "../../hooks/useGlobalContext";
 import { useEffect } from "react";
 import "./Cart.css";
 import ReactLoader from "../../components/ReactLoading/ReactLoader";
+import Title from "../../components/Title/Title";
 
 const Cart = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,7 +18,7 @@ const Cart = () => {
   const removeCartItem = (item) => {
     setCartLoading(true);
     fetch(
-      `https://easymart-server.onrender.com/user/cart/removeItem/${user.email}`,
+      `https://rich-gray-scallop-sari.cyclic.cloud/user/cart/removeItem/${user.email}`,
       {
         method: "PUT",
         headers: {
@@ -42,7 +43,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`https://easymart-server.onrender.com/users/${user.email}`)
+      fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setCartItems(data.cart);
@@ -74,9 +75,7 @@ const Cart = () => {
         />
       )}
       <div className="container">
-        <h2 className="cart-title">
-          <span>/</span> Cart
-        </h2>
+        <Title text="Cart" />
         {cartLoading && (
           <div style={{ margin: "2rem 0" }}>
             <ReactLoader type={"spin"} color={"green"} />
@@ -170,7 +169,7 @@ const ConfirmModal = ({ userEmail, cartItems, setModalOpen }) => {
     setConfirmLoading(true);
 
     orders.forEach((item) => {
-      fetch("https://easymart-server.onrender.com/orders", {
+      fetch("https://rich-gray-scallop-sari.cyclic.cloud/orders", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -185,7 +184,7 @@ const ConfirmModal = ({ userEmail, cartItems, setModalOpen }) => {
     });
 
     fetch(
-      `https://easymart-server.onrender.com/cart/orderConfirmed/${userEmail}`,
+      `https://rich-gray-scallop-sari.cyclic.cloud/cart/orderConfirmed/${userEmail}`,
       {
         method: "PUT",
       }
@@ -193,11 +192,10 @@ const ConfirmModal = ({ userEmail, cartItems, setModalOpen }) => {
       .then((res) => res.json())
       .then((data) => {
         setConfirmLoading(false);
-        console.log(data.acknowledged);
+        setModalOpen(false);
+        window.alert("Order placed. Check progress in My Order!");
       })
       .catch((error) => console.error(error));
-
-    setModalOpen(false);
   };
 
   return (

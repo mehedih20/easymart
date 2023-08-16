@@ -39,7 +39,7 @@ const AddProduct = () => {
     };
 
     if (Object.keys(newItem).length !== 0) {
-      fetch("https://easymart-server.onrender.com/products", {
+      fetch("https://rich-gray-scallop-sari.cyclic.cloud/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",

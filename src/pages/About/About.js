@@ -12,6 +12,7 @@ import serviceIcon3 from "../../assets/About/Icons/about-icon-3.webp";
 import serviceIcon4 from "../../assets/About/Icons/about-icon-4.webp";
 import serviceIcon5 from "../../assets/About/Icons/about-icon-5.webp";
 import serviceIcon6 from "../../assets/About/Icons/about-icon-6.webp";
+import Title from "../../components/Title/Title";
 
 const welcomeSliderImages = [
   welcomeSlide1,
@@ -71,9 +72,7 @@ const About = () => {
 
   return (
     <div className="container">
-      <h2 className="title">
-        <span>/</span> About
-      </h2>
+      <Title text="About" />
       <div className="about-welcome">
         <div className="about-welcome-left">
           <div className="welcome-img">

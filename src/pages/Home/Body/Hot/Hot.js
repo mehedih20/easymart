@@ -9,16 +9,22 @@ const Hot = () => {
 
   useEffect(() => {
     setProductLoading(true);
-    fetch("https://easymart-server.onrender.com/products")
+    const fetching = fetch(
+      "https://rich-gray-scallop-sari.cyclic.cloud/products"
+    )
       .then((res) => res.json())
       .then((data) => {
         const newData = data.filter((item) => item.deal === "Hot").slice(0, 10);
         setProducts(newData);
         setProductLoading(false);
+        window.scrollTo(0, 0);
       })
       .catch(() => {
         setProductLoading(false);
+        window.scrollTo(0, 0);
       });
+
+    return () => fetching;
   }, []);
 
   return (

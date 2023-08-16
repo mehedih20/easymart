@@ -14,7 +14,7 @@ const ManageProduct = () => {
   };
 
   const handleDeleteProduct = (deleteId) => {
-    fetch(`https://easymart-server.onrender.com/products/${deleteId}`, {
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/products/${deleteId}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -24,7 +24,9 @@ const ManageProduct = () => {
   };
 
   useEffect(() => {
-    const fetching = fetch("https://easymart-server.onrender.com/products")
+    const fetching = fetch(
+      "https://rich-gray-scallop-sari.cyclic.cloud/products"
+    )
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

@@ -10,6 +10,7 @@ import ManageOrders from "./ManageOrders/ManageOrders";
 import ShowProducts from "../../components/ShowProducts/ShowProducts";
 import MyOrders from "./MyOrders/MyOrders";
 import Payment from "./Payment/Payment";
+import Title from "../../components/Title/Title";
 
 const Dashboard = () => {
   const [dasboardLoading, setDashboardLoading] = useState(true);
@@ -20,7 +21,7 @@ const Dashboard = () => {
   const loaction = useLocation();
 
   useEffect(() => {
-    fetch("https://easymart-server.onrender.com/products")
+    fetch("https://rich-gray-scallop-sari.cyclic.cloud/products")
       .then((res) => res.json())
       .then((data) => {
         const newData = data.reverse().slice(0, 4);
@@ -29,7 +30,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`https://easymart-server.onrender.com/users/${user.email}`)
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setDashboardUser(data);
@@ -39,74 +40,79 @@ const Dashboard = () => {
 
   return (
     <>
-      {dasboardLoading && (
-        <div style={{ textAlign: "center", margin: "10rem 0" }}>
-          <ReactLoader type={"spin"} color={"red"} />
-        </div>
-      )}
-
-      <div className="dashboard container">
-        {dashboardUser && (
-          <>
-            <nav className="dashboard-nav">
-              {dashboardUser?.role === "administrator" && (
-                <>
-                  <Link to="/dashboard/addProduct">Add Product</Link>
-                  <Link to="/dashboard/manageAdmin">Manage Admin</Link>
-                  <Link to="/dashboard/manageProduct">Manage Products</Link>
-                  <Link to="/dashboard/manageOrders">Manage Orders</Link>
-                </>
-              )}
-              {dashboardUser?.role === "admin" && (
-                <>
-                  <Link to="/dashboard/addProduct">Add Product</Link>
-                  <Link to="/dashboard/manageProduct">Manage Products</Link>
-                  <Link to="/dashboard/manageOrders">Manage Orders</Link>
-                </>
-              )}
-              {!dashboardUser?.hasOwnProperty("role") && (
-                <>
-                  <Link to="/dashboard/myOrders">My Orders</Link>
-                  <Link to="/dashboard/payment">Payment</Link>
-                </>
-              )}
-            </nav>
-            <div className="dashboard-content">
-              {loaction.pathname === "/dashboard" && (
-                <>
-                  <div className="dasboard-welcome">
-                    <h2>
-                      Welcome to your dashboard <span>{user.name}</span> !
-                    </h2>
-                  </div>
-                  <div>
-                    {newProduct && (
-                      <ShowProducts
-                        page={"dashboard"}
-                        title={"Recently added"}
-                        products={newProduct}
-                      />
-                    )}
-                  </div>
-                </>
-              )}
-              {loaction.pathname === "/dashboard/addProduct" && <AddProduct />}
-              {loaction.pathname === "/dashboard/manageProduct" && (
-                <ManageProduct />
-              )}
-              {loaction.pathname === "/dashboard/manageAdmin" && (
-                <ManageAdmin />
-              )}
-              {loaction.pathname === "/dashboard/manageOrders" && (
-                <ManageOrders dashboardUser={dashboardUser} />
-              )}
-              {loaction.pathname === "/dashboard/myOrders" && (
-                <MyOrders dashboardUser={dashboardUser} />
-              )}
-              {loaction.pathname === "/dashboard/payment" && <Payment />}
-            </div>
-          </>
+      <div className="container">
+        <Title text="Dashboard" />
+        {dasboardLoading && (
+          <div style={{ textAlign: "center", margin: "10rem 0" }}>
+            <ReactLoader type={"spin"} color={"red"} />
+          </div>
         )}
+        <div className="dashboard">
+          {dashboardUser && (
+            <>
+              <nav className="dashboard-nav">
+                {dashboardUser?.role === "administrator" && (
+                  <>
+                    <Link to="/dashboard/addProduct">Add Product</Link>
+                    <Link to="/dashboard/manageAdmin">Manage Admin</Link>
+                    <Link to="/dashboard/manageProduct">Manage Products</Link>
+                    <Link to="/dashboard/manageOrders">Manage Orders</Link>
+                  </>
+                )}
+                {dashboardUser?.role === "admin" && (
+                  <>
+                    <Link to="/dashboard/addProduct">Add Product</Link>
+                    <Link to="/dashboard/manageProduct">Manage Products</Link>
+                    <Link to="/dashboard/manageOrders">Manage Orders</Link>
+                  </>
+                )}
+                {!dashboardUser?.hasOwnProperty("role") && (
+                  <>
+                    <Link to="/dashboard/myOrders">My Orders</Link>
+                    <Link to="/dashboard/payment">Payment</Link>
+                  </>
+                )}
+              </nav>
+              <div className="dashboard-content">
+                {loaction.pathname === "/dashboard" && (
+                  <>
+                    <div className="dasboard-welcome">
+                      <h2>
+                        Welcome to your dashboard <span>{user.name}</span> !
+                      </h2>
+                    </div>
+                    <div>
+                      {newProduct && (
+                        <ShowProducts
+                          page={"dashboard"}
+                          title={"Recently added"}
+                          products={newProduct}
+                        />
+                      )}
+                    </div>
+                  </>
+                )}
+                {loaction.pathname === "/dashboard/addProduct" && (
+                  <AddProduct />
+                )}
+                {loaction.pathname === "/dashboard/manageProduct" && (
+                  <ManageProduct />
+                )}
+                {loaction.pathname === "/dashboard/manageAdmin" && (
+                  <ManageAdmin />
+                )}
+                {loaction.pathname === "/dashboard/manageOrders" && (
+                  <ManageOrders dashboardUser={dashboardUser} />
+                )}
+                {loaction.pathname === "/dashboard/myOrders" && (
+                  <MyOrders dashboardUser={dashboardUser} />
+                )}
+                {loaction.pathname === "/dashboard/payment" && <Payment />}
+              </div>
+            </>
+          )}
+          <div />
+        </div>
       </div>
     </>
   );

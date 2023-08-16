@@ -11,7 +11,7 @@ const ManageAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`https://easymart-server.onrender.com/users/${text}`)
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${text}`)
       .then((res) => res.json())
       .then((data) => {
         setFormUser(data);
@@ -23,7 +23,7 @@ const ManageAdmin = () => {
   };
 
   const fetchUpdatedUser = () => {
-    fetch(`https://easymart-server.onrender.com/users/${formUser.email}`)
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${formUser.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -36,7 +36,7 @@ const ManageAdmin = () => {
   const makeAdmin = () => {
     setLoading(true);
     fetch(
-      `https://easymart-server.onrender.com/user/makeAdmin/${formUser._id}`,
+      `https://rich-gray-scallop-sari.cyclic.cloud/user/makeAdmin/${formUser._id}`,
       {
         method: "PUT",
       }
@@ -52,7 +52,7 @@ const ManageAdmin = () => {
   const removeAdmin = () => {
     setLoading(true);
     fetch(
-      `https://easymart-server.onrender.com/user/removeAdmin/${formUser._id}`,
+      `https://rich-gray-scallop-sari.cyclic.cloud/user/removeAdmin/${formUser._id}`,
       {
         method: "PUT",
       }

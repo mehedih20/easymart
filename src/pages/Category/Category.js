@@ -11,13 +11,12 @@ const Category = () => {
 
   useEffect(() => {
     setCategoryLoading(true);
-    fetch("https://easymart-server.onrender.com/products")
+    fetch("https://rich-gray-scallop-sari.cyclic.cloud/products")
       .then((res) => res.json())
       .then((data) => {
+        window.scrollTo(0, 0);
         const newData = data.filter((item) => item.category === catName);
         setCategoryProduct(newData);
-        console.log(newData);
-        console.log(catName);
         setCategoryLoading(false);
       })
       .catch((error) => {

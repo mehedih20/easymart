@@ -23,7 +23,7 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   const createUserInDB = (person) => {
-    fetch("https://easymart-server.onrender.com/users", {
+    fetch("https://rich-gray-scallop-sari.cyclic.cloud/users", {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -51,7 +51,7 @@ const useFirebase = () => {
 
   const createNewUser = (username, email, password) => {
     setLoading(true);
-    fetch(`https://easymart-server.onrender.com/users/${email}`)
+    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data) {

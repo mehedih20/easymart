@@ -14,11 +14,14 @@ const ShowOrders = ({ data, dashboardUser, approveOrder, loading }) => {
             </div>
             <div className="cart-item-text">
               <h4>{productName}</h4>
-              {dashboardUser?.role === "admin" ||
-                (dashboardUser?.role === "administrator" && <p>{email}</p>)}
+              {(dashboardUser?.role === "admin" ||
+                dashboardUser?.role === "administrator") && <p>{email}</p>}
               <p>Quantity: {productQuantity}</p>
               <p className="order-status">
-                Status: <span>{status ? "shipped" : "Not shipped yet"}</span>
+                Status:{" "}
+                <span className={`${status && "bg-green"}`}>
+                  {status ? "shipped" : "Not shipped yet"}
+                </span>
               </p>
               {(dashboardUser?.role === "admin" ||
                 dashboardUser?.role === "administrator") && (

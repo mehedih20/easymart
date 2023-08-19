@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./SingleProduct.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineHome } from "react-icons/ai";
 import useGlobalContext from "../../hooks/useGlobalContext";
 import ReactLoader from "../ReactLoading/ReactLoader";
+import Title from "../Title/Title";
 
 const SingleProduct = () => {
   const [loading, setLoading] = useState(false);
@@ -83,10 +84,7 @@ const SingleProduct = () => {
     <div className="container">
       {loading && <ReactLoader type={"spin"} color={"green"} />}
       {product && (
-        <h2 className="singleProduct-title">
-          <span>/{product?.category}/ </span>
-          {product?.name}
-        </h2>
+        <Title text={`Categories/${product.category}/${product.name}`} />
       )}
       <div className="singleProduct-container">
         {product && (

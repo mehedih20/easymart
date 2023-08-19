@@ -12,6 +12,7 @@ import serviceIcon3 from "../../assets/About/Icons/about-icon-3.webp";
 import serviceIcon4 from "../../assets/About/Icons/about-icon-4.webp";
 import serviceIcon5 from "../../assets/About/Icons/about-icon-5.webp";
 import serviceIcon6 from "../../assets/About/Icons/about-icon-6.webp";
+import developerImg from "../../assets/About/developer-img1.webp";
 import Title from "../../components/Title/Title";
 
 const welcomeSliderImages = [
@@ -116,7 +117,7 @@ const About = () => {
         </div>
       </div>
       <div className="about-services">
-        <div className="about-services-title">
+        <div className="about-title">
           <h3>Our serices</h3>
         </div>
         <div className="about-services-container">
@@ -134,6 +135,37 @@ const About = () => {
               </div>
             );
           })}
+        </div>
+      </div>
+      <div className="about-developer">
+        <div className="about-title">
+          <h3>Developer</h3>
+          <div className="about-developer-container">
+            <div className="about-developer-text">
+              <h3>Meet our developer</h3>
+              <p>
+                Hello! I am Mehedi Hasan, a mern-stack developer pursuing my
+                undergraduate degree in Computer Science and Engineering.
+                <br /> <br />
+                It is great fun for me to create modern web applications with
+                the latest technologies available in tech market. I am using the
+                most popular JavaScript library React for the frontend along
+                with some css and component library like Bootstrap,Tailwind and
+                Material UI. On the otherhand, for backend I am using NodeJs
+                with the help of Express.
+                <br /> As a mern stack developer, most of the time I use MongoDb
+                as database for full-stack applications. But occasionally I use
+                Firebase Realtime Database.
+              </p>
+            </div>
+            <div className="about-developer-img">
+              <img src={developerImg} alt="developer-img" />
+              <div className="about-developer-img-text">
+                <h3>Mehedi Hasan</h3>
+                <p>Founder and Developer</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

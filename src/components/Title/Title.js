@@ -3,6 +3,8 @@ import { AiOutlineHome } from "react-icons/ai";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 const Title = ({ text }) => {
+  const newText = text.split("/");
+  console.log(newText);
   return (
     <h2 className="title">
       <span>
@@ -11,7 +13,13 @@ const Title = ({ text }) => {
         />{" "}
         Home <MdKeyboardArrowRight />
       </span>
-      Pages <MdKeyboardArrowRight /> {text}
+      Pages <MdKeyboardArrowRight /> {newText[0]}
+      {newText[1] && (
+        <>
+          <MdKeyboardArrowRight /> {newText[1]} <MdKeyboardArrowRight />
+          {newText[2]}
+        </>
+      )}
     </h2>
   );
 };

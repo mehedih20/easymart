@@ -13,7 +13,7 @@ import {
   AiOutlineLogout,
 } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import CategoriesHover from "../CategoriesHover/CategoriesHover";
 import useGlobalContext from "../../hooks/useGlobalContext";
@@ -24,6 +24,8 @@ const Navigation = () => {
   const navigate = useNavigate();
   const { firebase } = useGlobalContext();
   const { auth, signOut, user, setUser } = firebase;
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   const handleLogout = () => {
     signOut(auth)
@@ -75,14 +77,39 @@ const Navigation = () => {
               <BsChevronDown />{" "}
               <CategoriesHover showCategories={showCategories} />
             </button>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/deals">
+            <NavLink
+              className={`${pathname === "/" && "color-primary"}`}
+              to="/"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              className={`${pathname === "/deals" && "color-primary"}`}
+              to="/deals"
+            >
               <BsFire className="deal-icon" /> Deals
             </NavLink>
-            <NavLink to="/about">About</NavLink>
+            <NavLink
+              className={`${pathname === "/about" && "color-primary"}`}
+              to="/about"
+            >
+              About
+            </NavLink>
             {/* <NavLink to="/blogs">Blogs</NavLink> */}
-            <NavLink to="/contact">Contact</NavLink>
-            {user && <NavLink to="/dashboard">Dashboard</NavLink>}
+            <NavLink
+              className={`${pathname === "/contact" && "color-primary"}`}
+              to="/contact"
+            >
+              Contact
+            </NavLink>
+            {user && (
+              <NavLink
+                className={`${pathname === "/dashboard" && "color-primary"}`}
+                to="/dashboard"
+              >
+                Dashboard
+              </NavLink>
+            )}
           </div>
           <div className="header-nav-right">
             <BsHeadphones />

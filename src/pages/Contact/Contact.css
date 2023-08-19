@@ -1,0 +1,120 @@
+.contact-map {
+  height: 45rem;
+  margin-bottom: 10rem;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.contact-map img {
+  width: 100%;
+}
+
+.contact-text-title {
+  margin-bottom: 5rem;
+  font-size: 2.5rem;
+  padding: 1rem 5rem;
+  border-radius: 1rem;
+  font-family: var(--font-quick);
+  color: var(--color-primary-dark);
+  background-color: var(--color-primary-light);
+}
+
+.contact-text-container {
+  padding: 0 5rem 10rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 5rem;
+}
+
+.contact-text {
+  text-align: justify;
+}
+
+.contact-text > h2 {
+  font-size: 3rem;
+  font-family: var(--font-quick);
+  color: var(--color-dark);
+  margin-bottom: 2rem;
+}
+.contact-text > h3 {
+  font-size: 2rem;
+  font-family: var(--font-quick);
+  color: var(--color-dark);
+  margin-bottom: 1rem;
+}
+
+.contact-text > p {
+  margin-bottom: 1rem;
+  color: var(--color-grey);
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.contact-form-container {
+  margin: 0 auto 10rem;
+  width: 60%;
+  padding: 5rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.contact-form-container h3,
+h2 {
+  font-family: var(--font-quick);
+}
+
+.contact-form-container h3 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+.contact-form-container h2 {
+  font-size: 4rem;
+  color: var(--color-dark);
+  margin-bottom: 1rem;
+}
+.contact-form-container p {
+  color: var(--color-grey);
+  margin-bottom: 3rem;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 3rem;
+}
+
+.contact-form input,
+textarea {
+  padding: 2rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
+  font-size: 1.5rem;
+  color: var(--color-dark);
+  font-family: var(--font-jose);
+}
+
+.contact-form textarea {
+  grid-column: span 2;
+}
+
+.contact-form button {
+  background-color: var(--color-primary);
+  grid-column: span 2;
+  padding: 1.5rem 0;
+  border-radius: 1rem;
+  font-family: var(--font-jose);
+  font-size: 1.6rem;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.contact-form button:hover {
+  background-color: var(--color-dark);
+}

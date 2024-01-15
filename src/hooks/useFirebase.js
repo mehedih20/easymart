@@ -23,8 +23,8 @@ const useFirebase = () => {
   const googleProvider = new GoogleAuthProvider();
 
   const createUserInDB = (person) => {
-    fetch("https://rich-gray-scallop-sari.cyclic.cloud/users", {
-      method: "PUT",
+    fetch("https://easy-mart-server-sandy.vercel.app/users", {
+      method: "POST",
       headers: {
         "content-type": "application/json",
       },
@@ -42,6 +42,7 @@ const useFirebase = () => {
         const person = {
           name: result.user.displayName,
           email: result.user.email,
+          role: "user",
         };
         createUserInDB(person);
         navigate(location);
@@ -51,7 +52,7 @@ const useFirebase = () => {
 
   const createNewUser = (username, email, password) => {
     setLoading(true);
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${email}`)
+    fetch(`https://easy-mart-server-sandy.vercel.app/users/${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (!data) {

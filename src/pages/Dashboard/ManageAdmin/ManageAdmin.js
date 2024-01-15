@@ -11,11 +11,11 @@ const ManageAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${text}`)
+    console.log(`https://easy-mart-server-sandy.vercel.app/users/${text}`);
+    fetch(`https://easy-mart-server-sandy.vercel.app/users/${text}`)
       .then((res) => res.json())
       .then((data) => {
-        setFormUser(data);
-        console.log(data);
+        setFormUser(data.user[0]);
         setText("");
         setLoading(false);
       })
@@ -23,11 +23,10 @@ const ManageAdmin = () => {
   };
 
   const fetchUpdatedUser = () => {
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${formUser.email}`)
+    fetch(`https://easy-mart-server-sandy.vercel.app/users/${formUser.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setFormUser(data);
+        setFormUser(data.user[0]);
         setLoading(false);
       })
       .catch((error) => console.log(error));
@@ -35,15 +34,24 @@ const ManageAdmin = () => {
 
   const makeAdmin = () => {
     setLoading(true);
+
+    const changedRole = {
+      role: "admin",
+    };
+
     fetch(
-      `https://rich-gray-scallop-sari.cyclic.cloud/user/makeAdmin/${formUser._id}`,
+      `https://easy-mart-server-sandy.vercel.app/user/change-role/${formUser._id}`,
       {
         method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(changedRole),
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.acknowledged) {
+        if (data.success === true) {
           fetchUpdatedUser();
         }
       });
@@ -51,15 +59,24 @@ const ManageAdmin = () => {
 
   const removeAdmin = () => {
     setLoading(true);
+
+    const changedRole = {
+      role: "user",
+    };
+
     fetch(
-      `https://rich-gray-scallop-sari.cyclic.cloud/user/removeAdmin/${formUser._id}`,
+      `https://easy-mart-server-sandy.vercel.app/user/change-role/${formUser._id}`,
       {
         method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(changedRole),
       }
     )
       .then((res) => res.json())
       .then((data) => {
-        if (data.acknowledged) {
+        if (data.success === true) {
           fetchUpdatedUser();
         }
       });
@@ -91,7 +108,9 @@ const ManageAdmin = () => {
           <div className="manageAdmin-user">
             <div className="manageAdmin-user-left">
               <h2>{formUser.name}</h2>
-              <p>{formUser.email}</p>
+              <p>
+                {formUser.email} ({formUser.role})
+              </p>
             </div>
             <div className="manageAdmin-user-right">
               {formUser.role === "admin" ? (

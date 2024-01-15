@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import useGlobalContext from "../../hooks/useGlobalContext";
 import { useEffect } from "react";
 import "./Cart.css";
@@ -6,6 +6,7 @@ import ReactLoader from "../../components/ReactLoading/ReactLoader";
 import Title from "../../components/Title/Title";
 
 const Cart = () => {
+  const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [cartLoading, setCartLoading] = useState(false);
   const [cartItems, setCartItems] = useState(null);
@@ -15,21 +16,22 @@ const Cart = () => {
   const [tax, setTax] = useState(0);
   const [address, setAddress] = useState("");
 
-  const removeCartItem = (item) => {
+  const removeCartItem = (id) => {
     setCartLoading(true);
+    setConfirmLoading(true);
     fetch(
-      `https://rich-gray-scallop-sari.cyclic.cloud/user/cart/removeItem/${user.email}`,
+      `https://easy-mart-server-sandy.vercel.app/cart/${user.email}/${id}`,
       {
         method: "PUT",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(item),
       }
     )
       .then((res) => res.json())
       .then((data) => {
         setCartLoading(false);
+        setConfirmLoading(false);
       });
   };
 
@@ -43,18 +45,24 @@ const Cart = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${user.email}`)
+      setCartLoading(true);
+      fetch(`https://easy-mart-server-sandy.vercel.app/cart/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
-          setCartItems(data.cart);
+          if (data.cart?.cartItems.length > 0) {
+            setCartItems(data.cart?.cartItems);
+          } else {
+            setCartItems(null);
+          }
+          setCartLoading(false);
         });
     }
-  }, [user, removeCartItem]);
+  }, [user, confirmLoading]);
 
   useEffect(() => {
     if (cartItems) {
       const prices = cartItems.map((item) => {
-        return parseInt(item.productPrice) * item.productQuantity;
+        return parseInt(item.productId.price) * item.productQuantity;
       });
       let sum = prices.reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
@@ -72,41 +80,37 @@ const Cart = () => {
           cartItems={cartItems}
           setModalOpen={setModalOpen}
           modalOpen={modalOpen}
+          confirmLoading={confirmLoading}
+          setConfirmLoading={setConfirmLoading}
         />
       )}
       <div className="container">
         <Title text="Cart" />
-        {cartLoading && (
-          <div style={{ margin: "2rem 0" }}>
-            <ReactLoader type={"spin"} color={"green"} />
-          </div>
-        )}
 
         <div className="cart-container">
           <div className="cart-left">
-            {(!cartItems || cartItems?.length === 0) && (
+            {cartLoading && (
+              <div className="cart-loading-overlay">
+                <ReactLoader type={"spin"} color={"green"} />
+              </div>
+            )}
+            {(cartItems === null || cartItems?.length === 0) && (
               <h2 className="cart-empty-text">Your cart is empty!</h2>
             )}
             {cartItems?.map((item, index) => {
-              const {
-                itemId,
-                productName,
-                productImg,
-                productPrice,
-                productQuantity,
-              } = item;
+              const { productId, productQuantity } = item;
               return (
                 <div className="cart-item-box" key={index}>
                   <div className="cart-item-img">
-                    <img src={productImg} alt={productName} />
+                    <img src={productId.imgUrl} alt={productId.name} />
                   </div>
                   <div className="cart-item-text">
-                    <h4>{productName}</h4>
-                    <p>Price: ${productPrice}</p>
+                    <h4>{productId.name}</h4>
+                    <p>Price: ${productId.price}</p>
                     <p>Quantity: {productQuantity}</p>
                     <button
                       className="cart-rmv-btn"
-                      onClick={() => removeCartItem(item)}
+                      onClick={() => removeCartItem(productId._id)}
                     >
                       Remove
                     </button>
@@ -117,14 +121,14 @@ const Cart = () => {
           </div>
           <div className="cart-right">
             <h2>{`Total:  ${
-              !cartItems || cartItems?.length === 0
+              cartItems === null || cartItems?.length === 0
                 ? "$0"
                 : itemPrice + tax + 20
             }`}</h2>
             <p>Items price: ${itemPrice}</p>
             <p>Tax: ${tax}</p>
             <p>{`Delivery charges: ${
-              !cartItems || cartItems?.length === 0 ? "$0" : "$20"
+              cartItems === null || cartItems?.length === 0 ? "$0" : "$20"
             }`}</p>
             <div className="cart-right-delivery">
               <p>Enter delivery address:</p>
@@ -152,48 +156,53 @@ const Cart = () => {
   );
 };
 
-const ConfirmModal = ({ userEmail, cartItems, setModalOpen }) => {
-  const [confirmLoading, setConfirmLoading] = useState(false);
+const ConfirmModal = ({
+  userEmail,
+  cartItems,
+  setModalOpen,
+  confirmLoading,
+  setConfirmLoading,
+}) => {
+  const { setNotification } = useGlobalContext();
 
   const confirmOrder = () => {
     const orders = cartItems.map((item) => {
-      const { productImg, productName, productQuantity, productId } = item;
+      const { productQuantity, productId } = item;
       return {
         email: userEmail,
-        productImg,
-        productName,
+        productImg: productId.imgUrl,
+        productName: productId.name,
         productQuantity,
         productId,
+        status: "pending",
       };
     });
     setConfirmLoading(true);
 
-    orders.forEach((item) => {
-      fetch("https://rich-gray-scallop-sari.cyclic.cloud/orders", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(item),
+    fetch("https://easy-mart-server-sandy.vercel.app/orders", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(orders),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.success);
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.acknowledged);
-        })
-        .catch((error) => console.error(error));
-    });
+      .catch((error) => console.error(error));
 
     fetch(
-      `https://rich-gray-scallop-sari.cyclic.cloud/cart/orderConfirmed/${userEmail}`,
+      `https://easy-mart-server-sandy.vercel.app/cart/${userEmail}/orderConfirmed`,
       {
-        method: "PUT",
+        method: "DELETE",
       }
     )
       .then((res) => res.json())
       .then((data) => {
         setConfirmLoading(false);
         setModalOpen(false);
-        window.alert("Order placed. Check progress in My Order!");
+        setNotification("Order placed. Check progress in My Order!");
       })
       .catch((error) => console.error(error));
   };

@@ -9,10 +9,10 @@ const NewProducts = () => {
 
   useEffect(() => {
     setProductLoading(true);
-    fetch("https://rich-gray-scallop-sari.cyclic.cloud/products")
+    fetch("https://easy-mart-server-sandy.vercel.app/products?deal=New")
       .then((res) => res.json())
       .then((data) => {
-        const newData = data.filter((item) => item.deal === "New").slice(0, 10);
+        const newData = data.products.data.slice(0, 10);
         setProducts(newData);
         setProductLoading(false);
       })

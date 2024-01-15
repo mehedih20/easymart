@@ -10,11 +10,11 @@ const Hot = () => {
   useEffect(() => {
     setProductLoading(true);
     const fetching = fetch(
-      "https://rich-gray-scallop-sari.cyclic.cloud/products"
+      "https://easy-mart-server-sandy.vercel.app/products?deal=Hot"
     )
       .then((res) => res.json())
       .then((data) => {
-        const newData = data.filter((item) => item.deal === "Hot").slice(0, 10);
+        const newData = data.products.data.slice(0, 10);
         setProducts(newData);
         setProductLoading(false);
         window.scrollTo(0, 0);

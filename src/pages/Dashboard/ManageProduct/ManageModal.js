@@ -20,15 +20,15 @@ const ManageModal = ({ showModal, setShowModal }) => {
       category: item1,
       name: item2,
       imgUrl: item3,
-      price: item4,
-      oldPrice: item5,
-      rating: item6,
+      price: Number(item4),
+      oldPrice: Number(item5),
+      rating: Number(item6),
       deal: item7,
     };
     setIsLoading(true);
     if (setEditItem !== null) {
       fetch(
-        `https://rich-gray-scallop-sari.cyclic.cloud/product/${editItem._id}`,
+        `https://easy-mart-server-sandy.vercel.app/products/${editItem._id}`,
         {
           method: "PUT",
           headers: {
@@ -41,7 +41,6 @@ const ManageModal = ({ showModal, setShowModal }) => {
         .then((data) => {
           setShowModal(false);
           setIsLoading(false);
-          console.log(data.acknowledged);
         })
         .catch((error) => {
           console.error(error);

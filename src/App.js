@@ -4,9 +4,7 @@ import Navigation from "./components/Navigation/Navigation";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
 import Category from "./pages/Category/Category";
-import Deals from "./pages/Deals/Deals";
 import Contact from "./pages/Contact/Contact";
-import Blogs from "./pages/Blogs/Blogs";
 import About from "./pages/About/About";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
@@ -20,18 +18,20 @@ import ManageOrders from "./pages/Dashboard/ManageOrders/ManageOrders";
 import MyOrders from "./pages/Dashboard/MyOrders/MyOrders";
 import Payment from "./pages/Dashboard/Payment/Payment";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
+import AllProducts from "./pages/AllProducts/AllProducts";
+import Notification from "./components/Notification/Notification";
 
 const App = () => {
   return (
     <Router>
       <Navigation />
+      <Notification />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:catName" element={<Category />} />
         <Route path="/product/:productId" element={<SingleProduct />} />
-        <Route path="/deals" element={<Deals />} />
+        <Route path="/products" element={<AllProducts />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/blogs" element={<Blogs />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route

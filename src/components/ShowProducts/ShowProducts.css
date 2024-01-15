@@ -128,7 +128,6 @@
   color: var(--color-dark);
   transition: all 0.3s ease;
 }
-
 .product-box-bottom-btn:hover {
   background-color: var(--color-primary);
 }

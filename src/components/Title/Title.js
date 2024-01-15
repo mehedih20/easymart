@@ -4,7 +4,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 const Title = ({ text }) => {
   const newText = text.split("/");
-  console.log(newText);
+
   return (
     <h2 className="title">
       <span>

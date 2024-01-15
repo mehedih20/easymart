@@ -2,6 +2,27 @@ import React, { useEffect, useState } from "react";
 import "./AddProduct.css";
 import ReactLoader from "../../../components/ReactLoading/ReactLoader";
 
+const validateData = (data) => {
+  // Check if category, name, imgUrl, and deal are not empty
+  if (!data.category || !data.name || !data.imgUrl || !data.deal) {
+  }
+
+  // Check if price, oldPrice, and rating are valid numbers
+  if (
+    typeof data.price !== "number" ||
+    typeof data.oldPrice !== "number" ||
+    typeof data.rating !== "number"
+  ) {
+    return false;
+  }
+
+  // Check if price and oldPrice are non-negative
+  if (data.price <= 0 || data.oldPrice <= 0) {
+    return false;
+  }
+  return true;
+};
+
 const AddProduct = () => {
   const [addNotificationText, setAddNotificationText] = useState("");
   const [showNotification, setShowNotification] = useState(false);
@@ -32,14 +53,14 @@ const AddProduct = () => {
       category: item1,
       name: item2,
       imgUrl: item3,
-      price: item4,
-      oldPrice: item5,
-      rating: item6,
+      price: Number(item4),
+      oldPrice: Number(item5),
+      rating: Number(item6),
       deal: item7,
     };
 
-    if (Object.keys(newItem).length !== 0) {
-      fetch("https://rich-gray-scallop-sari.cyclic.cloud/products", {
+    if (validateData(newItem)) {
+      fetch("https://easy-mart-server-sandy.vercel.app/create-product", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -50,12 +71,13 @@ const AddProduct = () => {
         .then((data) => {
           resetForm();
           setAddLoading(false);
-          setAddNotificationText("Product successfully added");
+          setAddNotificationText(data.message);
           setShowNotification(true);
         });
     } else {
       setAddLoading(false);
-      console.log("Not all field were filled properly");
+      setAddNotificationText("Not all field were filled properly");
+      setShowNotification(true);
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SingleProduct.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { AiFillStar, AiOutlineHome } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 import useGlobalContext from "../../hooks/useGlobalContext";
 import ReactLoader from "../ReactLoading/ReactLoader";
 import Title from "../Title/Title";
@@ -10,11 +10,12 @@ const SingleProduct = () => {
   const [loading, setLoading] = useState(false);
   const [productQuantity, setProductQuantity] = useState(1);
   const [product, setProduct] = useState(null);
+  const [addCartLoading, setAddCartLoading] = useState(false);
   const { productId } = useParams();
   const { firebase } = useGlobalContext();
   const { user } = firebase;
-  const [notification, setNotification] = useState("");
   const navigate = useNavigate();
+  const { setNotification } = useGlobalContext();
 
   const reRating = (rating) => {
     const starArr = [];
@@ -33,49 +34,37 @@ const SingleProduct = () => {
       setNotification("Invalid action. Quantity cannot be 0!");
       return;
     }
+    setAddCartLoading(true);
     const newCartItem = {
-      itemId: new Date().getTime().toString(),
       productId,
-      productQuantity,
-      productName: product.name,
-      productPrice: product.price,
-      productImg: product.imgUrl,
+      productQuantity: Number(productQuantity),
     };
-    fetch(
-      `https://rich-gray-scallop-sari.cyclic.cloud/user/cart/${user.email}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newCartItem),
-      }
-    )
+    fetch(`https://easy-mart-server-sandy.vercel.app/cart/${user.email}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCartItem),
+    })
       .then((res) => res.json())
       .then((data) => {
-        if (data.acknowledged) {
-          setNotification("Product added to cart");
+        if (data.success) {
+          setAddCartLoading(false);
+          setNotification(data.message);
         } else {
+          setAddCartLoading(false);
           setNotification("Something went wrong. Try again");
         }
       });
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setNotification("");
-    }, 3000);
-
-    return () => clearTimeout(timeout);
-  }, [notification]);
-
-  useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/products/${productId}`)
+    fetch(`https://easy-mart-server-sandy.vercel.app/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
-        setProduct(data);
+        setProduct(data.product);
         setLoading(false);
       });
   }, []);
@@ -90,12 +79,9 @@ const SingleProduct = () => {
         {product && (
           <>
             <div className="singleProduct-left">
-              <img src={product.imgUrl} alt="singleProduct-image" />
+              <img src={product.imgUrl} alt="single-product" />
             </div>
             <div className="singleProduct-right">
-              {notification.length !== 0 && (
-                <h3 className="singleProduct-notification">{notification}</h3>
-              )}
               <h3 className="product-title">{product?.name}</h3>
               <p className="product-ctg">{product?.category}</p>
               <p className="product-rating">
@@ -138,18 +124,24 @@ const SingleProduct = () => {
                   <span>Total: </span>${product.price * productQuantity}
                 </p>
               )}
-              <button className="addCart-btn" onClick={addToCart}>
-                Add to Cart
-              </button>
-              <button
-                className="addCart-btn cart-btn"
-                onClick={() => navigate("/cart")}
-              >
-                Cart
-              </button>
-              <button className="addCart-btn" onClick={() => navigate(-1)}>
-                Back
-              </button>
+              <div className="single-item-btn-container">
+                <button className="addCart-btn" onClick={addToCart}>
+                  {addCartLoading ? (
+                    <ReactLoader type={"spin"} color={"red"} />
+                  ) : (
+                    "Add to Cart"
+                  )}
+                </button>
+                <button
+                  className="addCart-btn cart-btn"
+                  onClick={() => navigate("/cart")}
+                >
+                  Cart
+                </button>
+                <button className="addCart-btn" onClick={() => navigate(-1)}>
+                  Back
+                </button>
+              </div>
             </div>
           </>
         )}

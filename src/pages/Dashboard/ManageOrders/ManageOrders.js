@@ -1,39 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./ManageOrders.css";
-import ShowOrders from "../../../components/ShowOrders/ShowOrders";
+import SingleOrder from "../../../components/ShowOrders/SingleOrder";
 
 const ManageOrders = ({ dashboardUser }) => {
   const [orderData, setOrderData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const approveOrder = (id) => {
-    setLoading(true);
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/orders/${id}`, {
-      method: "PUT",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoading(false);
-      });
-  };
 
   useEffect(() => {
-    fetch("https://rich-gray-scallop-sari.cyclic.cloud/orders")
+    fetch("https://easy-mart-server-sandy.vercel.app/orders")
       .then((res) => res.json())
-      .then((data) => setOrderData(data));
-  }, [approveOrder]);
+      .then((data) => setOrderData(data.orders));
+  }, []);
 
   return (
     <div>
-      {orderData && (
-        <ShowOrders
-          data={orderData}
-          dashboardUser={dashboardUser}
-          approveOrder={approveOrder}
-          setLoading={setLoading}
-          loading={loading}
-        />
-      )}
+      {orderData &&
+        orderData.map((item, index) => {
+          return (
+            <SingleOrder
+              item={item}
+              dashboardUser={dashboardUser}
+              setOrderData={setOrderData}
+              key={index}
+            />
+          );
+        })}
     </div>
   );
 };

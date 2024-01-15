@@ -11,11 +11,13 @@ const Category = () => {
 
   useEffect(() => {
     setCategoryLoading(true);
-    fetch("https://rich-gray-scallop-sari.cyclic.cloud/products")
+    fetch("https://easy-mart-server-sandy.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
         window.scrollTo(0, 0);
-        const newData = data.filter((item) => item.category === catName);
+        const newData = data.products.filter(
+          (item) => item.category === catName
+        );
         setCategoryProduct(newData);
         setCategoryLoading(false);
       })

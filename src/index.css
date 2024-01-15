@@ -15,7 +15,7 @@
   --color-red: #f24c3d;
   --color-green: #23901f;
   --color-purple: #614bc3;
-  --color-green-light: #f7fff5;
+  --color-green-light: #e4f8df;
   --color-primary-dark: #844327;
 
   /* fonts */
@@ -39,6 +39,7 @@ html {
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  position: relative;
 }
 
 body {

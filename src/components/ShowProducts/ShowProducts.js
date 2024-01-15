@@ -16,14 +16,14 @@ const ShowProducts = ({ title, products, page, icon, titleColor }) => {
 
   return (
     <div className="show-container">
-      {page !== "category" && (
+      {page !== "category" && page !== "products" && (
         <h2 className={`show-title ${titleColor}`}>
           {title} <span>{icon}</span>
         </h2>
       )}
       <div className="showproduct-container">
         {products &&
-          products.map((item, index) => {
+          products.map((item) => {
             const {
               category,
               name,

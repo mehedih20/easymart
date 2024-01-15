@@ -4,7 +4,6 @@ import {
   BsCartCheck,
   BsCart,
   BsChevronDown,
-  BsFire,
   BsHeadphones,
 } from "react-icons/bs";
 import {
@@ -25,7 +24,6 @@ const Navigation = () => {
   const { firebase } = useGlobalContext();
   const { auth, signOut, user, setUser } = firebase;
   const { pathname } = useLocation();
-  console.log(pathname);
 
   const handleLogout = () => {
     signOut(auth)
@@ -84,10 +82,10 @@ const Navigation = () => {
               Home
             </NavLink>
             <NavLink
-              className={`${pathname === "/deals" && "color-primary"}`}
-              to="/deals"
+              className={`${pathname === "/products" && "color-primary"}`}
+              to="/products"
             >
-              <BsFire className="deal-icon" /> Deals
+              Products
             </NavLink>
             <NavLink
               className={`${pathname === "/about" && "color-primary"}`}
@@ -95,7 +93,6 @@ const Navigation = () => {
             >
               About
             </NavLink>
-            {/* <NavLink to="/blogs">Blogs</NavLink> */}
             <NavLink
               className={`${pathname === "/contact" && "color-primary"}`}
               to="/contact"

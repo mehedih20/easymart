@@ -1,0 +1,87 @@
+.products-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  margin-bottom: 10rem;
+}
+
+.products-container-left div {
+  margin-bottom: 2rem;
+}
+
+.deals-btn {
+  display: flex;
+  flex-direction: column;
+  padding-right: 5rem;
+}
+
+.deals-btn label {
+  font-size: 1.6rem;
+  color: var(--color-grey);
+}
+
+.deals-btn select {
+  border: none;
+  padding: 1rem 2rem;
+  margin-top: 0.5rem;
+  background-color: var(--color-primary-light);
+  border-radius: 1rem;
+  outline: none;
+  font-size: 1.5rem;
+  color: var(--color-black);
+}
+
+.categories-check,
+.radio-check {
+  display: flex;
+  flex-direction: column;
+}
+
+.categories-check p,
+.radio-check p {
+  font-size: 1.6rem;
+  color: var(--color-grey);
+  margin-bottom: 1rem;
+}
+
+.categories-check label,
+.radio-check label {
+  color: var(--color-black);
+  font-size: 1.5rem;
+}
+
+.categories-check input,
+.radio-check input {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.products-container-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+.product-pages button {
+  cursor: pointer;
+  padding: 1rem 2rem;
+  margin: 0 1rem;
+  background-color: var(--color-primary-light);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.product-pages button:hover {
+  background-color: var(--color-primary);
+}
+
+.pages-btn-selected {
+  background-color: var(--color-primary) !important;
+  pointer-events: none;
+}

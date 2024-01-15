@@ -21,19 +21,19 @@ const Dashboard = () => {
   const loaction = useLocation();
 
   useEffect(() => {
-    fetch("https://rich-gray-scallop-sari.cyclic.cloud/products")
+    fetch("https://easy-mart-server-sandy.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
-        const newData = data.reverse().slice(0, 4);
+        const newData = data.products.reverse().slice(0, 4);
         setNewProduct(newData);
       });
   }, []);
 
   useEffect(() => {
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/users/${user.email}`)
+    fetch(`https://easy-mart-server-sandy.vercel.app/users/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
-        setDashboardUser(data);
+        setDashboardUser(data.user[0]);
         setDashboardLoading(false);
       });
   }, []);
@@ -51,7 +51,7 @@ const Dashboard = () => {
           {dashboardUser && (
             <>
               <nav className="dashboard-nav">
-                {dashboardUser?.role === "administrator" && (
+                {dashboardUser?.role === "owner" && (
                   <>
                     <Link to="/dashboard/addProduct">Add Product</Link>
                     <Link to="/dashboard/manageAdmin">Manage Admin</Link>
@@ -66,7 +66,7 @@ const Dashboard = () => {
                     <Link to="/dashboard/manageOrders">Manage Orders</Link>
                   </>
                 )}
-                {!dashboardUser?.hasOwnProperty("role") && (
+                {dashboardUser?.role === "user" && (
                   <>
                     <Link to="/dashboard/myOrders">My Orders</Link>
                     <Link to="/dashboard/payment">Payment</Link>

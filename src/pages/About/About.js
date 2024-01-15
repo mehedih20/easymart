@@ -77,7 +77,7 @@ const About = () => {
       <div className="about-welcome">
         <div className="about-welcome-left">
           <div className="welcome-img">
-            <img src={welcomeImg} alt="welcome-image" />
+            <img src={welcomeImg} alt="welcome-img" />
           </div>
         </div>
         <div className="about-welcome-right">

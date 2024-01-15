@@ -95,6 +95,10 @@
   font-size: 2rem;
 }
 
+.single-item-btn-container {
+  display: flex;
+}
+
 .addCart-btn {
   background-color: var(--color-primary);
   padding: 1rem 5rem;

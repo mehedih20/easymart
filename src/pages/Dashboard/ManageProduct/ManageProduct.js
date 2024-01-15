@@ -14,9 +14,12 @@ const ManageProduct = () => {
   };
 
   const handleDeleteProduct = (deleteId) => {
-    fetch(`https://rich-gray-scallop-sari.cyclic.cloud/products/${deleteId}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://easy-mart-server-sandy.vercel.app/delete-product/${deleteId}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -24,12 +27,10 @@ const ManageProduct = () => {
   };
 
   useEffect(() => {
-    const fetching = fetch(
-      "https://rich-gray-scallop-sari.cyclic.cloud/products"
-    )
+    const fetching = fetch("https://easy-mart-server-sandy.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data);
+        setProducts(data.products);
       });
     return () => fetching;
   }, [products]);

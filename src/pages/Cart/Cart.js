@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import useGlobalContext from "../../hooks/useGlobalContext";
 import { useEffect } from "react";
 import "./Cart.css";

@@ -59,6 +59,7 @@ const SingleProduct = () => {
   };
 
   useEffect(() => {
+    setProduct(null);
     window.scrollTo(0, 0);
     setLoading(true);
     fetch(`https://easy-mart-server-sandy.vercel.app/products/${productId}`)
@@ -67,7 +68,7 @@ const SingleProduct = () => {
         setProduct(data.product);
         setLoading(false);
       });
-  }, []);
+  }, [productId]);
 
   return (
     <div className="container">

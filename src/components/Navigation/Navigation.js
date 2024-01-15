@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react";
 import headerlogo from "../../assets/EasyMart-logo.webp";
 import {
   BsCartCheck,
@@ -18,6 +19,8 @@ import CategoriesHover from "../CategoriesHover/CategoriesHover";
 import useGlobalContext from "../../hooks/useGlobalContext";
 
 const Navigation = () => {
+  const [searchText, setSearchText] = useState("");
+  const [searchItems, setSearchItems] = useState(null);
   const [isCartEmpty, setIsCartEmpty] = useState(true);
   const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
@@ -35,6 +38,23 @@ const Navigation = () => {
     navigate("/");
   };
 
+  const handleNavigateSearchItem = (id) => {
+    navigate(`/product/${id}`);
+    setSearchText("");
+  };
+
+  useEffect(() => {
+    if (searchText) {
+      fetch(
+        `https://easy-mart-server-sandy.vercel.app/products?searchTerm=${searchText}`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setSearchItems(result.products.data);
+        });
+    }
+  }, [searchText]);
+
   return (
     <header>
       <div className="container">
@@ -42,10 +62,33 @@ const Navigation = () => {
           <div className="header-top-left">
             <img src={headerlogo} alt="header-logo" />
             <div className="header-top-search">
-              <input type="search" placeholder="Search for items.." />
+              <input
+                type="search"
+                placeholder="Search for items.."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
               <button>
                 <AiOutlineSearch />
               </button>
+              {searchItems && (
+                <div
+                  className={`header-top-search-result ${
+                    !searchText && "display-none"
+                  }`}
+                >
+                  {searchItems.map((item) => {
+                    return (
+                      <div>
+                        <img src={item.imgUrl} alt="" height="80" width="60" />
+                        <p onClick={() => handleNavigateSearchItem(item._id)}>
+                          {item.name}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
           <div className="header-top-right">

@@ -23,8 +23,8 @@ const Dashboard = () => {
   useEffect(() => {
     fetch("https://easy-mart-server-sandy.vercel.app/products")
       .then((res) => res.json())
-      .then((data) => {
-        const newData = data.products.reverse().slice(0, 4);
+      .then((result) => {
+        const newData = result.products.data.reverse().slice(0, 4);
         setNewProduct(newData);
       });
   }, []);

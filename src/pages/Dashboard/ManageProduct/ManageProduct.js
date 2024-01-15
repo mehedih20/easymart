@@ -30,7 +30,7 @@ const ManageProduct = () => {
     const fetching = fetch("https://easy-mart-server-sandy.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
-        setProducts(data.products);
+        setProducts(data.products.data);
       });
     return () => fetching;
   }, [products]);
@@ -40,7 +40,7 @@ const ManageProduct = () => {
       <ManageModal showModal={showModal} setShowModal={setShowModal} />
       <div className="m-product-container">
         {products &&
-          products.map((item, index) => {
+          products.map((item) => {
             const { category, name, imgUrl, price, oldPrice, deal, _id } = item;
             return (
               <div className="m-product-box" key={_id}>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./ManageAdmin.css";
 import ReactLoader from "../../../components/ReactLoading/ReactLoader";
-import useGlobalContext from "../../../hooks/useGlobalContext";
 
 const ManageAdmin = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +10,6 @@ const ManageAdmin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(`https://easy-mart-server-sandy.vercel.app/users/${text}`);
     fetch(`https://easy-mart-server-sandy.vercel.app/users/${text}`)
       .then((res) => res.json())
       .then((data) => {

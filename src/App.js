@@ -19,13 +19,11 @@ import MyOrders from "./pages/Dashboard/MyOrders/MyOrders";
 import Payment from "./pages/Dashboard/Payment/Payment";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AllProducts from "./pages/AllProducts/AllProducts";
-import Notification from "./components/Notification/Notification";
 
 const App = () => {
   return (
     <Router>
       <Navigation />
-      <Notification />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:catName" element={<Category />} />

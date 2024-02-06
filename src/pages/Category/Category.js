@@ -1,41 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Category.css";
 import { useParams } from "react-router-dom";
 import ShowProducts from "../../components/ShowProducts/ShowProducts";
 import ReactLoader from "../../components/ReactLoading/ReactLoader";
+import { useGetProductsQuery } from "../../redux/features/products/productsApi";
 
 const Category = () => {
-  const [categoryLoading, setCategoryLoading] = useState(false);
-  const [categoryProduct, setCategoryProduct] = useState([]);
   const { catName } = useParams();
-
-  useEffect(() => {
-    setCategoryLoading(true);
-    fetch("https://easy-mart-server-sandy.vercel.app/products")
-      .then((res) => res.json())
-      .then((data) => {
-        window.scrollTo(0, 0);
-        const newData = data.products.filter(
-          (item) => item.category === catName
-        );
-        setCategoryProduct(newData);
-        setCategoryLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setCategoryLoading(false);
-      });
-  }, [catName]);
+  const { data, isFetching } = useGetProductsQuery([
+    { name: "categories", value: catName },
+    { name: "limit", value: "0" },
+  ]);
 
   return (
-    <div className="container">
+    <div className={`container ${isFetching && "mb-5"}`}>
       <h2 className="category-title bg-light-green">
         Categories/ <span>{catName}</span>
       </h2>
-      {categoryLoading ? (
+      {isFetching ? (
         <ReactLoader type={"spinningBubbles"} color={"red"} />
       ) : (
-        <ShowProducts products={categoryProduct} title={""} page={"category"} />
+        <ShowProducts
+          products={data.products.data}
+          title={""}
+          page={"category"}
+        />
       )}
     </div>
   );

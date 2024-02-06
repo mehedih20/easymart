@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./ManageModal.css";
 import useGlobalContext from "../../../hooks/useGlobalContext";
 import ReactLoader from "../../../components/ReactLoading/ReactLoader";
+import { useUpdateSingleProductMutation } from "../../../redux/features/products/productsApi";
+import { toast } from "sonner";
 
 const ManageModal = ({ showModal, setShowModal }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const { editItem, setEditItem } = useGlobalContext();
   const [item1, setItem1] = useState("");
   const [item2, setItem2] = useState("");
@@ -14,40 +15,7 @@ const ManageModal = ({ showModal, setShowModal }) => {
   const [item6, setItem6] = useState("");
   const [item7, setItem7] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const editedItem = {
-      category: item1,
-      name: item2,
-      imgUrl: item3,
-      price: Number(item4),
-      oldPrice: Number(item5),
-      rating: Number(item6),
-      deal: item7,
-    };
-    setIsLoading(true);
-    if (setEditItem !== null) {
-      fetch(
-        `https://easy-mart-server-sandy.vercel.app/products/${editItem._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(editedItem),
-        }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setShowModal(false);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          setIsLoading(false);
-        });
-    }
-  };
+  const [updateSingleProduct, { isLoading }] = useUpdateSingleProductMutation();
 
   const handleCancel = () => {
     setShowModal(false);
@@ -59,6 +27,31 @@ const ManageModal = ({ showModal, setShowModal }) => {
     setItem5("");
     setItem6("");
     setItem7("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const editedObj = {
+      id: editItem?._id,
+      data: {
+        category: item1,
+        name: item2,
+        imgUrl: item3,
+        price: Number(item4),
+        oldPrice: Number(item5),
+        rating: Number(item6),
+        deal: item7,
+      },
+    };
+
+    const result = await updateSingleProduct(editedObj);
+    if (result.data.success) {
+      toast.success(result.data.message);
+    } else {
+      toast.error("Something went wrong");
+    }
+
+    handleCancel();
   };
 
   useEffect(() => {

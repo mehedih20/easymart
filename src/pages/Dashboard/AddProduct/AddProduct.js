@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AddProduct.css";
 import ReactLoader from "../../../components/ReactLoading/ReactLoader";
+import { useAddSingleProductMutation } from "../../../redux/features/products/productsApi";
+import { toast } from "sonner";
 
 const validateData = (data) => {
   // Check if category, name, imgUrl, and deal are not empty
@@ -24,9 +26,7 @@ const validateData = (data) => {
 };
 
 const AddProduct = () => {
-  const [addNotificationText, setAddNotificationText] = useState("");
-  const [showNotification, setShowNotification] = useState(false);
-  const [addLoading, setAddLoading] = useState(false);
+  const [addSingleProduct, { isLoading }] = useAddSingleProductMutation();
 
   const [item1, setItem1] = useState("");
   const [item2, setItem2] = useState("");
@@ -46,9 +46,8 @@ const AddProduct = () => {
     setItem7("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setAddLoading(true);
     const newItem = {
       category: item1,
       name: item2,
@@ -60,33 +59,17 @@ const AddProduct = () => {
     };
 
     if (validateData(newItem)) {
-      fetch("https://easy-mart-server-sandy.vercel.app/create-product", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newItem),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          resetForm();
-          setAddLoading(false);
-          setAddNotificationText(data.message);
-          setShowNotification(true);
-        });
+      const result = await addSingleProduct(newItem);
+      if (result.data.success) {
+        toast.success(result.data.message);
+        resetForm();
+      } else {
+        toast.error("Something went wrong");
+      }
     } else {
-      setAddLoading(false);
-      setAddNotificationText("Not all field were filled properly");
-      setShowNotification(true);
+      toast.warning("Not all field were filled properly");
     }
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowNotification(false);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [showNotification]);
 
   return (
     <div className="addProduct-container">
@@ -170,15 +153,8 @@ const AddProduct = () => {
             </select>
           </div>
         </div>
-        <p
-          className={`addProduct-notification ${
-            showNotification && "addProduct-notification-show"
-          }`}
-        >
-          {addNotificationText}
-        </p>
         <button type="submit" className="addProduct-form-btn">
-          {addLoading ? <ReactLoader type={"spin"} color={"blue"} /> : "Submit"}
+          {isLoading ? <ReactLoader type={"spin"} color={"blue"} /> : "Submit"}
         </button>
       </form>
     </div>

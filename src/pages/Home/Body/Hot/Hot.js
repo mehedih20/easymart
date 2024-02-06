@@ -1,43 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiFillFire } from "react-icons/ai";
 import ShowProducts from "../../../../components/ShowProducts/ShowProducts";
 import ReactLoader from "../../../../components/ReactLoading/ReactLoader";
+import { useGetProductsQuery } from "../../../../redux/features/products/productsApi";
 
 const Hot = () => {
-  const [productLoading, setProductLoading] = useState(false);
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    setProductLoading(true);
-    const fetching = fetch(
-      "https://easy-mart-server-sandy.vercel.app/products?deal=Hot"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const newData = data.products.data.slice(0, 10);
-        setProducts(newData);
-        setProductLoading(false);
-        window.scrollTo(0, 0);
-      })
-      .catch(() => {
-        setProductLoading(false);
-        window.scrollTo(0, 0);
-      });
-
-    return () => fetching;
-  }, []);
+  const { data, isLoading } = useGetProductsQuery([
+    { name: "deal", value: "Hot" },
+    { name: "limit", value: "10" },
+  ]);
 
   return (
     <div className="my-md">
-      {products && productLoading ? (
+      {isLoading ? (
         <ReactLoader type={"spinningBubbles"} color={"red"} />
       ) : (
-        <ShowProducts
-          titleColor={"bg-light-red"}
-          title={"Hot Deals"}
-          products={products}
-          icon={<AiFillFire />}
-        />
+        data.products && (
+          <ShowProducts
+            titleColor={"bg-light-red"}
+            title={"Hot Deals"}
+            products={data.products.data}
+            icon={<AiFillFire />}
+          />
+        )
       )}
     </div>
   );

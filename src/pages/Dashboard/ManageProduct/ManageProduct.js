@@ -1,46 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./ManageProduct.css";
 import useGlobalContext from "../../../hooks/useGlobalContext";
 import ManageModal from "./ManageModal";
+import {
+  useDeleteSingleProductMutation,
+  useGetProductsQuery,
+} from "../../../redux/features/products/productsApi";
+import { toast } from "sonner";
+import ReactLoader from "../../../components/ReactLoading/ReactLoader";
 
 const ManageProduct = () => {
   const { setEditItem } = useGlobalContext();
   const [showModal, setShowModal] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const { data, isFetching } = useGetProductsQuery([
+    { name: "page", value: page },
+  ]);
+  const [deleteSingleProduct] = useDeleteSingleProductMutation();
+
+  const totalItems = data?.products?.meta?.total;
+  const limit = data?.products?.meta?.limit;
+  const pages = Math.ceil(totalItems / limit);
 
   const handleEdit = (item) => {
     setShowModal(true);
     setEditItem(item);
   };
 
-  const handleDeleteProduct = (deleteId) => {
-    fetch(
-      `https://easy-mart-server-sandy.vercel.app/delete-product/${deleteId}`,
-      {
-        method: "DELETE",
-      }
-    )
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-      });
-  };
+  const handleDeleteProduct = async (deleteId) => {
+    const toastId = toast.loading("Deleting product");
+    const result = await deleteSingleProduct(deleteId);
 
-  useEffect(() => {
-    const fetching = fetch("https://easy-mart-server-sandy.vercel.app/products")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.products.data);
-      });
-    return () => fetching;
-  }, [products]);
+    if (result.data.success) {
+      toast.success(result.data.message, { id: toastId });
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <>
       <ManageModal showModal={showModal} setShowModal={setShowModal} />
       <div className="m-product-container">
-        {products &&
-          products.map((item) => {
+        {isFetching ? (
+          <ReactLoader type={"spin"} color={"red"} />
+        ) : (
+          data?.products?.data?.map((item) => {
             const { category, name, imgUrl, price, oldPrice, deal, _id } = item;
             return (
               <div className="m-product-box" key={_id}>
@@ -82,7 +87,24 @@ const ManageProduct = () => {
                 </div>
               </div>
             );
-          })}
+          })
+        )}
+        <div
+          className="product-pages"
+          style={{ height: "100px", marginTop: "auto" }}
+        >
+          {Array.from({ length: pages }, (_, index) => (
+            <button
+              onClick={() => setPage(index + 1)}
+              className={`${
+                data?.products?.meta?.page === index + 1 && "pages-btn-selected"
+              }`}
+              key={index}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );

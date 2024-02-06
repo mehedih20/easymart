@@ -101,3 +101,7 @@ a {
 .display-none {
   display: none;
 }
+
+.mb-5 {
+  margin-bottom: 5rem;
+}

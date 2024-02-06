@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./AllProducts.css";
 import Title from "../../components/Title/Title";
 import ReactLoader from "../../components/ReactLoading/ReactLoader";
 import ShowProducts from "../../components/ShowProducts/ShowProducts";
+import {
+  useGetProductCategoriesQuery,
+  useGetProductsQuery,
+} from "../../redux/features/products/productsApi";
 
 const sortByData = ["name", "price", "rating", "none"];
 const sortOrderData = ["asc", "desc"];
 
 const AllProducts = () => {
-  const [productLoading, setProductLoading] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [pages, setPages] = useState([]);
   const [productOptions, setProductOptions] = useState({
     deal: "",
     categories: [],
@@ -19,6 +19,22 @@ const AllProducts = () => {
     sortOrder: "",
     page: 1,
   });
+  const { data: categoryData, isLoading } =
+    useGetProductCategoriesQuery(undefined);
+  const { data: productData, isFetching } = useGetProductsQuery(
+    [
+      { name: "deal", value: productOptions.deal },
+      { name: "categories", value: productOptions.categories },
+      { name: "sortBy", value: productOptions.sortBy },
+      { name: "sortOrder", value: productOptions.sortOrder },
+      { name: "page", value: productOptions.page },
+    ],
+    { skip: isLoading }
+  );
+
+  const totalItems = productData?.products.meta.total;
+  const limit = productData?.products.meta.limit;
+  const pages = Math.ceil(totalItems / limit);
 
   const handleDealChange = (e) => {
     setProductOptions((prev) => ({
@@ -64,42 +80,6 @@ const AllProducts = () => {
     }));
   };
 
-  // Fetching products
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    setProductLoading(true);
-    const fetching = fetch(
-      `https://easy-mart-server-sandy.vercel.app/products?deal=${productOptions.deal}&categories=${productOptions.categories}&sortBy=${productOptions.sortBy}&sortOrder=${productOptions.sortOrder}&page=${productOptions.page}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.products);
-        // Calculating pages
-        const totalItems = data.products.meta.total;
-        const limit = data.products.meta.limit;
-        setPages(Math.ceil(totalItems / limit));
-        setProductLoading(false);
-      })
-      .catch(() => {
-        setProductLoading(false);
-      });
-
-    return () => fetching;
-  }, [productOptions]);
-
-  // Fetching product categories
-  useEffect(() => {
-    const fetching = fetch(
-      "https://easy-mart-server-sandy.vercel.app/products/categories"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCategories(data.categories);
-      });
-
-    return () => fetching;
-  }, []);
-
   return (
     <div className="container">
       <Title text="Products" />
@@ -125,7 +105,7 @@ const AllProducts = () => {
           {/* Categories Checkbox */}
           <div className="categories-check">
             <p>Categories</p>
-            {categories.map((category) => (
+            {categoryData?.categories.map((category) => (
               <label key={category}>
                 <input
                   type="checkbox"
@@ -179,22 +159,25 @@ const AllProducts = () => {
 
         {/* Product container */}
         <div className="products-container-right">
-          {products && productLoading ? (
+          {isFetching ? (
             <ReactLoader type={"spin"} color={"red"} />
           ) : (
-            <ShowProducts
-              titleColor={"bg-light-red"}
-              title={""}
-              page="products"
-              products={products.data}
-            />
+            productData?.products && (
+              <ShowProducts
+                titleColor={"bg-light-red"}
+                title={""}
+                page="products"
+                products={productData?.products.data}
+              />
+            )
           )}
           <div className="product-pages">
             {Array.from({ length: pages }, (_, index) => (
               <button
                 onClick={() => handlePageChange(index + 1)}
                 className={`${
-                  products.meta.page === index + 1 && "pages-btn-selected"
+                  productData?.products.meta.page === index + 1 &&
+                  "pages-btn-selected"
                 }`}
                 key={index}
               >

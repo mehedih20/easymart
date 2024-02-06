@@ -1,42 +1,37 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import "./SingleOrder.css";
+import {
+  useDeleteOrderMutation,
+  useUpdateOrderStatusMutation,
+} from "../../redux/features/orders/ordersApi";
+import { toast } from "sonner";
 
-const SingleOrder = ({ item, dashboardUser, setOrderData }) => {
-  const [loading, setLoading] = useState(false);
-  const { _id, status, email, productName, productImg, productQuantity } = item;
+const SingleOrder = ({ item, dashboardUser, refetch }) => {
+  const {
+    _id,
+    status,
+    email,
+    productName,
+    productImg,
+    productQuantity,
+    orderAddress,
+  } = item;
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+  const [deleteUserOrder] = useDeleteOrderMutation();
 
-  const approveOrder = useCallback((id) => {
-    setLoading(true);
-    fetch(`https://easy-mart-server-sandy.vercel.app/orders/${id}`, {
-      method: "PUT",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoading(false);
-        fetch(
-          `https://easy-mart-server-sandy.vercel.app/orders/${dashboardUser.email}`
-        )
-          .then((res) => res.json())
-          .then((data) => setOrderData(data.orders));
-      });
-  }, []);
+  const approveOrder = async () => {
+    const toastId = toast.loading("Updating order status. Please wait...");
+    await updateOrderStatus(_id);
+    toast.success("Order status updated", { id: toastId });
+    refetch();
+  };
 
-  const deleteOrder = useCallback((id) => {
-    setLoading(true);
-    fetch(`https://easy-mart-server-sandy.vercel.app/orders/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoading(false);
-        fetch(
-          `https://easy-mart-server-sandy.vercel.app/orders/${dashboardUser.email}`
-        )
-          .then((res) => res.json())
-          .then((data) => setOrderData(data.orders));
-      });
-  }, []);
+  const deleteOrder = async () => {
+    const toastId = toast.loading("Deleting order. Please wait...");
+    await deleteUserOrder(_id);
+    toast.success("Order deleted", { id: toastId });
+    refetch();
+  };
 
   return (
     <div className="cart-item-box">
@@ -48,6 +43,7 @@ const SingleOrder = ({ item, dashboardUser, setOrderData }) => {
         {(dashboardUser?.role === "admin" ||
           dashboardUser?.role === "owner") && <p>{email}</p>}
         <p>Quantity: {productQuantity}</p>
+        {orderAddress && <p>Delivery address: {orderAddress}</p>}
         <p className="order-status">
           Status:{" "}
           <span className={`${status === "shipped" && "bg-green"}`}>
@@ -59,18 +55,16 @@ const SingleOrder = ({ item, dashboardUser, setOrderData }) => {
           <button
             className="cart-rmv-btn"
             disabled={status === "shipped" ? true : false}
-            onClick={() => approveOrder(_id)}
+            onClick={approveOrder}
           >
-            {status === "shipped"
-              ? "Approved"
-              : `${loading ? "Wait..." : "Approve"}`}
+            {status === "shipped" ? "Approved" : "Approve"}
           </button>
         )}
         {dashboardUser?.role === "user" && status === "pending" && (
           <button
             className="cart-rmv-btn"
             disabled={status === "shipped" ? true : false}
-            onClick={() => deleteOrder(_id)}
+            onClick={deleteOrder}
           >
             {status === "pending" && "Delete"}
           </button>

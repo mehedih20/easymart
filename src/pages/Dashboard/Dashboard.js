@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import AddProduct from "./AddProduct/AddProduct";
@@ -11,47 +11,39 @@ import ShowProducts from "../../components/ShowProducts/ShowProducts";
 import MyOrders from "./MyOrders/MyOrders";
 import Payment from "./Payment/Payment";
 import Title from "../../components/Title/Title";
+import { useGetProductsQuery } from "../../redux/features/products/productsApi";
+import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
 
 const Dashboard = () => {
-  const [dasboardLoading, setDashboardLoading] = useState(true);
-  const [dashboardUser, setDashboardUser] = useState(null);
-  const [newProduct, setNewProduct] = useState([]);
+  const loaction = useLocation();
   const { firebase } = useGlobalContext();
   const { user } = firebase;
-  const loaction = useLocation();
+  const { data: userData, isLoading: userLoading } = useGetSingleUserQuery(
+    user.email
+  );
+  const { data, isLoading: dataLoading } = useGetProductsQuery([
+    { name: "limit", value: 0 },
+  ]);
 
-  useEffect(() => {
-    fetch("https://easy-mart-server-sandy.vercel.app/products")
-      .then((res) => res.json())
-      .then((result) => {
-        const newData = result.products.data.reverse().slice(0, 4);
-        setNewProduct(newData);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch(`https://easy-mart-server-sandy.vercel.app/users/${user.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDashboardUser(data.user[0]);
-        setDashboardLoading(false);
-      });
-  }, []);
+  let productData = [];
+  if (data?.products) {
+    productData = [...data?.products?.data].reverse().slice(0, 4);
+  }
 
   return (
     <>
       <div className="container">
         <Title text="Dashboard" />
-        {dasboardLoading && (
+        {userLoading && (
           <div style={{ textAlign: "center", margin: "10rem 0" }}>
             <ReactLoader type={"spin"} color={"red"} />
           </div>
         )}
         <div className="dashboard">
-          {dashboardUser && (
+          {!userLoading && (
             <>
               <nav className="dashboard-nav">
-                {dashboardUser?.role === "owner" && (
+                {userData?.user.role === "owner" && (
                   <>
                     <Link to="/dashboard/addProduct">Add Product</Link>
                     <Link to="/dashboard/manageAdmin">Manage Admin</Link>
@@ -59,14 +51,14 @@ const Dashboard = () => {
                     <Link to="/dashboard/manageOrders">Manage Orders</Link>
                   </>
                 )}
-                {dashboardUser?.role === "admin" && (
+                {userData?.user.role === "admin" && (
                   <>
                     <Link to="/dashboard/addProduct">Add Product</Link>
                     <Link to="/dashboard/manageProduct">Manage Products</Link>
                     <Link to="/dashboard/manageOrders">Manage Orders</Link>
                   </>
                 )}
-                {dashboardUser?.role === "user" && (
+                {userData?.user.role === "user" && (
                   <>
                     <Link to="/dashboard/myOrders">My Orders</Link>
                     <Link to="/dashboard/payment">Payment</Link>
@@ -82,11 +74,11 @@ const Dashboard = () => {
                       </h2>
                     </div>
                     <div>
-                      {newProduct && (
+                      {!dataLoading && (
                         <ShowProducts
                           page={"dashboard"}
                           title={"Recently added"}
-                          products={newProduct}
+                          products={productData}
                         />
                       )}
                     </div>
@@ -102,10 +94,10 @@ const Dashboard = () => {
                   <ManageAdmin />
                 )}
                 {loaction.pathname === "/dashboard/manageOrders" && (
-                  <ManageOrders dashboardUser={dashboardUser} />
+                  <ManageOrders dashboardUser={userData?.user} />
                 )}
                 {loaction.pathname === "/dashboard/myOrders" && (
-                  <MyOrders dashboardUser={dashboardUser} />
+                  <MyOrders dashboardUser={userData?.user} />
                 )}
                 {loaction.pathname === "/dashboard/payment" && <Payment />}
               </div>

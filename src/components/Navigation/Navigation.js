@@ -17,21 +17,29 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import CategoriesHover from "../CategoriesHover/CategoriesHover";
 import useGlobalContext from "../../hooks/useGlobalContext";
+import { useGetProductsQuery } from "../../redux/features/products/productsApi";
+import { toast } from "sonner";
+import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
 
 const Navigation = () => {
   const [searchText, setSearchText] = useState("");
-  const [searchItems, setSearchItems] = useState(null);
+  const [isSkip, setIsSkip] = useState(true);
   const [isCartEmpty, setIsCartEmpty] = useState(true);
   const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
   const { firebase } = useGlobalContext();
   const { auth, signOut, user, setUser } = firebase;
   const { pathname } = useLocation();
+  const { data } = useGetProductsQuery(
+    [{ name: "searchTerm", value: searchText }],
+    { skip: isSkip }
+  );
+  const { data: userData } = useGetSingleUserQuery(user?.email);
 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        console.log("Sign out successful");
+        toast.success("Sign out successful");
       })
       .catch((error) => console.log(error));
     setUser(null);
@@ -43,17 +51,15 @@ const Navigation = () => {
     setSearchText("");
   };
 
-  useEffect(() => {
-    if (searchText) {
-      fetch(
-        `https://easy-mart-server-sandy.vercel.app/products?searchTerm=${searchText}`
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          setSearchItems(result.products.data);
-        });
+  const onChange = (e) => {
+    if (e.target.value !== "") {
+      setSearchText(e.target.value);
+      setIsSkip(false);
+    } else {
+      setSearchText(e.target.value);
+      setIsSkip(true);
     }
-  }, [searchText]);
+  };
 
   return (
     <header>
@@ -66,18 +72,18 @@ const Navigation = () => {
                 type="search"
                 placeholder="Search for items.."
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={onChange}
               />
               <button>
                 <AiOutlineSearch />
               </button>
-              {searchItems && (
+              {data?.products && (
                 <div
                   className={`header-top-search-result ${
                     !searchText && "display-none"
                   }`}
                 >
-                  {searchItems.map((item) => {
+                  {data.products.data.map((item) => {
                     return (
                       <div>
                         <img src={item.imgUrl} alt="" height="80" width="60" />
@@ -92,9 +98,14 @@ const Navigation = () => {
             </div>
           </div>
           <div className="header-top-right">
-            <button onClick={() => navigate("/cart")}>
-              {isCartEmpty ? <BsCart /> : <BsCartCheck />} Cart
-            </button>
+            {!(
+              userData?.user?.role === "owner" ||
+              userData?.user?.role === "admin"
+            ) && (
+              <button onClick={() => navigate("/cart")}>
+                {isCartEmpty ? <BsCart /> : <BsCartCheck />} Cart
+              </button>
+            )}
             {user ? (
               <button onClick={handleLogout}>
                 <AiOutlineLogout /> Log out

@@ -1,7 +1,10 @@
 .m-product-container {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
   height: 100%;
+  min-height: 50rem;
 }
 
 .overlay {

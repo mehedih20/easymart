@@ -1,27 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import SingleOrder from "../../../components/ShowOrders/SingleOrder";
+import { useGetSingleUserOrdersQuery } from "../../../redux/features/orders/ordersApi";
 
 const MyOrders = ({ dashboardUser }) => {
-  const [orderData, setOrderData] = useState([]);
-
-  useEffect(() => {
-    fetch(
-      `https://easy-mart-server-sandy.vercel.app/orders/${dashboardUser.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => setOrderData(data.orders));
-  }, []);
+  const { data, refetch } = useGetSingleUserOrdersQuery(dashboardUser.email);
 
   return (
     <div>
-      {orderData &&
-        orderData.map((item, index) => {
+      {data &&
+        data.orders.map((item, index) => {
           return (
             <SingleOrder
               item={item}
               dashboardUser={dashboardUser}
-              setOrderData={setOrderData}
+              refetch={refetch}
               key={index}
             />
           );

@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./CategoriesHover.css";
-import { GiImbricatedArrows } from "react-icons/gi";
+import { AiOutlineSend } from "react-icons/ai";
+import { useGetProductCategoriesQuery } from "../../redux/features/products/productsApi";
 
 const links = [
   {
@@ -47,13 +48,14 @@ const links = [
 ];
 
 const CategoriesHover = ({ showCategories }) => {
+  const { data } = useGetProductCategoriesQuery(undefined);
+
   return (
     <div className={`category-container ${showCategories && "show-container"}`}>
-      {links.map((linkItem, index) => {
-        const { id, title } = linkItem;
+      {data?.categories.map((linkItem, index) => {
         return (
-          <NavLink key={id} to={`/category/${title}`}>
-            <GiImbricatedArrows /> {title}
+          <NavLink key={index} to={`/category/${linkItem}`}>
+            <AiOutlineSend style={{ marginRight: "5px" }} /> {linkItem}
           </NavLink>
         );
       })}

@@ -1,37 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ShowProducts from "../../../../components/ShowProducts/ShowProducts";
 import { AiFillDollarCircle } from "react-icons/ai";
 import ReactLoader from "../../../../components/ReactLoading/ReactLoader";
+import { useGetProductsQuery } from "../../../../redux/features/products/productsApi";
 
 const OnSale = () => {
-  const [productLoading, setProductLoading] = useState(false);
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    setProductLoading(true);
-    fetch("https://easy-mart-server-sandy.vercel.app/products?deal=Sale")
-      .then((res) => res.json())
-      .then((data) => {
-        const newData = data.products.data.slice(0, 10);
-        setProducts(newData);
-        setProductLoading(false);
-      })
-      .catch(() => {
-        setProductLoading(false);
-      });
-  }, []);
+  const { data, isLoading } = useGetProductsQuery([
+    { name: "deal", value: "Sale" },
+    { name: "limit", value: "10" },
+  ]);
 
   return (
     <div className="my-md">
-      {products && productLoading ? (
+      {isLoading ? (
         <ReactLoader type={"spinningBubbles"} color={"red"} />
       ) : (
-        <ShowProducts
-          titleColor={"bg-light-green"}
-          title={"Best Selling"}
-          products={products}
-          icon={<AiFillDollarCircle style={{ color: "green" }} />}
-        />
+        data.products && (
+          <ShowProducts
+            titleColor={"bg-light-green"}
+            title={"Best Selling"}
+            products={data.products.data}
+            icon={<AiFillDollarCircle style={{ color: "green" }} />}
+          />
+        )
       )}
     </div>
   );

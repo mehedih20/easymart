@@ -14,8 +14,42 @@ import Title from "../../components/Title/Title";
 import { useGetProductsQuery } from "../../redux/features/products/productsApi";
 import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
 
+const superAdminNavData = [
+  {
+    name: "Add Product",
+    link: "/dashboard/addProduct",
+  },
+  {
+    name: "Manage Admin",
+    link: "/dashboard/manageAdmin",
+  },
+  {
+    name: "Manage Products",
+    link: "/dashboard/manageProduct",
+  },
+  {
+    name: "Manage Orders",
+    link: "/dashboard/manageOrders",
+  },
+];
+
+const adminNavData = superAdminNavData.filter(
+  (item) => item.name !== "Manage Admin"
+);
+
+const userNavData = [
+  {
+    name: "My Orders",
+    link: "/dashboard/myOrders",
+  },
+  {
+    name: "Payment",
+    link: "/dashboard/payment",
+  },
+];
+
 const Dashboard = () => {
-  const loaction = useLocation();
+  const { pathname } = useLocation();
   const { firebase } = useGlobalContext();
   const { user } = firebase;
   const { data: userData, isLoading: userLoading } = useGetSingleUserQuery(
@@ -24,6 +58,8 @@ const Dashboard = () => {
   const { data, isLoading: dataLoading } = useGetProductsQuery([
     { name: "limit", value: 0 },
   ]);
+
+  console.log(pathname);
 
   let productData = [];
   if (data?.products) {
@@ -45,28 +81,52 @@ const Dashboard = () => {
               <nav className="dashboard-nav">
                 {userData?.user.role === "owner" && (
                   <>
-                    <Link to="/dashboard/addProduct">Add Product</Link>
-                    <Link to="/dashboard/manageAdmin">Manage Admin</Link>
-                    <Link to="/dashboard/manageProduct">Manage Products</Link>
-                    <Link to="/dashboard/manageOrders">Manage Orders</Link>
+                    {superAdminNavData.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={item.link}
+                        className={`${
+                          pathname === item.link && "dashboard-nav-active"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
                   </>
                 )}
                 {userData?.user.role === "admin" && (
                   <>
-                    <Link to="/dashboard/addProduct">Add Product</Link>
-                    <Link to="/dashboard/manageProduct">Manage Products</Link>
-                    <Link to="/dashboard/manageOrders">Manage Orders</Link>
+                    {adminNavData.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={item.link}
+                        className={`${
+                          pathname === item.link && "dashboard-nav-active"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
                   </>
                 )}
                 {userData?.user.role === "user" && (
                   <>
-                    <Link to="/dashboard/myOrders">My Orders</Link>
-                    <Link to="/dashboard/payment">Payment</Link>
+                    {userNavData.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={item.link}
+                        className={`${
+                          pathname === item.link && "dashboard-nav-active"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
                   </>
                 )}
               </nav>
               <div className="dashboard-content">
-                {loaction.pathname === "/dashboard" && (
+                {pathname === "/dashboard" && (
                   <>
                     <div className="dasboard-welcome">
                       <h2>
@@ -84,26 +144,19 @@ const Dashboard = () => {
                     </div>
                   </>
                 )}
-                {loaction.pathname === "/dashboard/addProduct" && (
-                  <AddProduct />
-                )}
-                {loaction.pathname === "/dashboard/manageProduct" && (
-                  <ManageProduct />
-                )}
-                {loaction.pathname === "/dashboard/manageAdmin" && (
-                  <ManageAdmin />
-                )}
-                {loaction.pathname === "/dashboard/manageOrders" && (
+                {pathname === "/dashboard/addProduct" && <AddProduct />}
+                {pathname === "/dashboard/manageProduct" && <ManageProduct />}
+                {pathname === "/dashboard/manageAdmin" && <ManageAdmin />}
+                {pathname === "/dashboard/manageOrders" && (
                   <ManageOrders dashboardUser={userData?.user} />
                 )}
-                {loaction.pathname === "/dashboard/myOrders" && (
+                {pathname === "/dashboard/myOrders" && (
                   <MyOrders dashboardUser={userData?.user} />
                 )}
-                {loaction.pathname === "/dashboard/payment" && <Payment />}
+                {pathname === "/dashboard/payment" && <Payment />}
               </div>
             </>
           )}
-          <div />
         </div>
       </div>
     </>

@@ -24,7 +24,23 @@
   text-align: left;
   transition: 0.5s color ease;
 }
+.category-container a svg {
+  color: var(--color-primary);
+}
 
 .show-container {
   visibility: unset;
+}
+
+@media (max-width: 630px) {
+  .category-container {
+    width: 40rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .category-container {
+    width: 30rem;
+    grid-template-columns: 1fr;
+  }
 }

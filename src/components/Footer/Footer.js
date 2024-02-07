@@ -2,6 +2,7 @@ import React from "react";
 import FooterSubscribe from "./FooterSubscribe/FooterSubscribe";
 import FooterLinks from "./FooterLinks/FooterLinks";
 import { useLocation } from "react-router-dom";
+import "./Footer.css";
 
 const Footer = () => {
   const location = useLocation();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Banner.css";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BiSolidCircle } from "react-icons/bi";
@@ -12,16 +12,17 @@ const Banner = () => {
   const [rightCount, setRightCount] = useState(0);
   const [right, setRight] = useState("translate-pos");
 
-  const rightBtn = () => {
+  const rightBtn = useCallback(() => {
     setLeft("translate-neg");
     setRight("");
-    setRightCount(rightCount + 1);
-  };
-  const leftBtn = () => {
+    setRightCount((prevRightCount) => prevRightCount + 1);
+  }, []);
+
+  const leftBtn = useCallback(() => {
     setLeft("");
     setRight("translate-pos");
-    setLeftCount(leftCount + 1);
-  };
+    setLeftCount((prevLeftCount) => prevLeftCount + 1);
+  }, []);
 
   useEffect(() => {
     if (leftCount > 1) {
@@ -34,7 +35,7 @@ const Banner = () => {
       setLeftCount(0);
       setRightCount(0);
     }
-  }, [leftCount, rightCount]);
+  }, [leftCount, rightCount, leftBtn, rightBtn]);
 
   useEffect(() => {
     const interval = setInterval(() => {

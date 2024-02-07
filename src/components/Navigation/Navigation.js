@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import headerlogo from "../../assets/EasyMart-logo.webp";
 import {
   BsCartCheck,
@@ -13,6 +13,7 @@ import {
   AiOutlineLogout,
 } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import CategoriesHover from "../CategoriesHover/CategoriesHover";
@@ -22,6 +23,7 @@ import { toast } from "sonner";
 import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
 
 const Navigation = () => {
+  const [showNavigation, setShowNavigation] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isSkip, setIsSkip] = useState(true);
   const [isCartEmpty, setIsCartEmpty] = useState(true);
@@ -35,6 +37,8 @@ const Navigation = () => {
     { skip: isSkip }
   );
   const { data: userData } = useGetSingleUserQuery(user?.email);
+  const linksContainerRef = useRef(null);
+  const linksRef = useRef(null);
 
   const handleLogout = () => {
     signOut(auth)
@@ -60,6 +64,15 @@ const Navigation = () => {
       setIsSkip(true);
     }
   };
+
+  useEffect(() => {
+    let linksHeight = linksRef.current.getBoundingClientRect().height;
+    if (showNavigation) {
+      linksContainerRef.current.style.height = `${linksHeight}px`;
+    } else {
+      linksContainerRef.current.style.height = `0px`;
+    }
+  }, [showNavigation]);
 
   return (
     <header>
@@ -120,47 +133,64 @@ const Navigation = () => {
         </div>
         <nav className="header-nav">
           <div className="header-nav-left">
-            <button
-              className="header-nav-left-btn"
-              style={{ color: "var(--color-primary)" }}
-              onClick={() => setShowCategories(!showCategories)}
-            >
-              <BiCategory style={{ marginRight: "1rem" }} /> Categories{" "}
-              <BsChevronDown />{" "}
-              <CategoriesHover showCategories={showCategories} />
-            </button>
-            <NavLink
-              className={`${pathname === "/" && "color-primary"}`}
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className={`${pathname === "/products" && "color-primary"}`}
-              to="/products"
-            >
-              Products
-            </NavLink>
-            <NavLink
-              className={`${pathname === "/about" && "color-primary"}`}
-              to="/about"
-            >
-              About
-            </NavLink>
-            <NavLink
-              className={`${pathname === "/contact" && "color-primary"}`}
-              to="/contact"
-            >
-              Contact
-            </NavLink>
-            {user && (
-              <NavLink
-                className={`${pathname === "/dashboard" && "color-primary"}`}
-                to="/dashboard"
+            <div className="header-nav-left-btn-container">
+              <button
+                className="header-nav-left-btn"
+                style={{ color: "var(--color-primary)" }}
+                onClick={() => setShowCategories(!showCategories)}
               >
-                Dashboard
-              </NavLink>
-            )}
+                <BiCategory style={{ marginRight: "1rem" }} /> Categories{" "}
+                <BsChevronDown />{" "}
+                <CategoriesHover showCategories={showCategories} />
+              </button>
+              <button
+                className={`${showNavigation && "nav-btn-rotate"}`}
+                onClick={() => setShowNavigation(!showNavigation)}
+              >
+                <GiHamburgerMenu />
+              </button>
+            </div>
+            <div
+              className="header-nav-left-link-container"
+              ref={linksContainerRef}
+            >
+              <ul className="header-nav-left-links" ref={linksRef}>
+                <NavLink
+                  className={`${pathname === "/" && "color-primary"}`}
+                  to="/"
+                >
+                  Home
+                </NavLink>
+                <NavLink
+                  className={`${pathname === "/products" && "color-primary"}`}
+                  to="/products"
+                >
+                  Products
+                </NavLink>
+                <NavLink
+                  className={`${pathname === "/about" && "color-primary"}`}
+                  to="/about"
+                >
+                  About
+                </NavLink>
+                <NavLink
+                  className={`${pathname === "/contact" && "color-primary"}`}
+                  to="/contact"
+                >
+                  Contact
+                </NavLink>
+                {user && (
+                  <NavLink
+                    className={`${
+                      pathname === "/dashboard" && "color-primary"
+                    }`}
+                    to="/dashboard"
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
+              </ul>
+            </div>
           </div>
           <div className="header-nav-right">
             <BsHeadphones />

@@ -53,24 +53,27 @@ const ShowProducts = ({ title, products, page, icon, titleColor }) => {
                 <Link to={`/product/${_id}`} className="product-title">
                   {name}
                 </Link>
-                <p className="product-rating">
-                  {reRating(rating).map((item, index) => {
-                    return <span key={index}>{item}</span>;
-                  })}
-                </p>
+
                 <div className="product-box-bottom">
-                  <div className="product-box-bottom-price">
-                    <p className="product-price">${price}</p>
-                    <p className="product-old-price">{oldPrice}</p>
+                  <p className="product-rating">
+                    {reRating(rating).map((item, index) => {
+                      return <span key={index}>{item}</span>;
+                    })}
+                  </p>
+                  <div className="product-box-bottom-price-container">
+                    <div className="product-box-bottom-price">
+                      <p className="product-price">${price}</p>
+                      <p className="product-old-price">{oldPrice}</p>
+                    </div>
+                    {page !== "dashboard" && (
+                      <button
+                        className="product-box-bottom-btn"
+                        onClick={() => navigate(`/product/${_id}`)}
+                      >
+                        <BsCart /> Add
+                      </button>
+                    )}
                   </div>
-                  {page !== "dashboard" && (
-                    <button
-                      className="product-box-bottom-btn"
-                      onClick={() => navigate(`/product/${_id}`)}
-                    >
-                      <BsCart /> Add
-                    </button>
-                  )}
                 </div>
               </div>
             );

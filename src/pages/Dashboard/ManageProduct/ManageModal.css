@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.4s ease;
+  transition: all 0.4s ease-in-out;
   overflow: hidden;
 }
 
@@ -25,7 +25,8 @@
 }
 
 .modal-hide {
-  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
   width: 0;
   height: 0;
   overflow: hidden;

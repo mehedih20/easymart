@@ -82,3 +82,23 @@
   top: 65%;
   left: 6.5rem;
 }
+
+@media (max-width: 1240px) {
+  .banner-slider {
+    height: 40rem;
+  }
+}
+
+@media (max-width: 840px) {
+  .banner-container {
+    margin-bottom: 7rem;
+  }
+
+  .banner-slider {
+    height: 35rem;
+  }
+
+  .banner-subscribe {
+    left: 0;
+  }
+}

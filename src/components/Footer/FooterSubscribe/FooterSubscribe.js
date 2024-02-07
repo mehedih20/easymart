@@ -48,7 +48,7 @@ const FooterSubscribe = () => {
     <>
       <div className="footer-sub">
         <div className="footer-sub-img">
-          <img src={footerSubImg} alt="footer-subscribe-image" />
+          <img src={footerSubImg} alt="footer-subscribe" />
         </div>
         <div className="footer-sub-content">
           <h2>

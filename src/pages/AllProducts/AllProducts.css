@@ -85,3 +85,29 @@
   background-color: var(--color-primary) !important;
   pointer-events: none;
 }
+
+@media (max-width: 960px) {
+  .products-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    justify-items: center;
+  }
+  .deals-btn {
+    grid-column: span 3;
+  }
+  .products-container-left {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .deals-btn {
+    padding-right: 0;
+  }
+  .categories-check input,
+  .radio-check input {
+    margin-left: 0;
+  }
+  .categories-check label,
+  .radio-check label {
+    margin-bottom: 0.5rem;
+  }
+}

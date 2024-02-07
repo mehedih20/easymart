@@ -1,14 +1,15 @@
 .contact-map {
-  height: 45rem;
+  height: 40rem;
   margin-bottom: 10rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   border-radius: 2rem;
+  justify-content: center;
 }
 
 .contact-map img {
-  width: 100%;
+  display: block;
 }
 
 .contact-text-title {
@@ -54,7 +55,7 @@
 
 .contact-form-container {
   margin: 0 auto 10rem;
-  width: 60%;
+  max-width: 100rem;
   padding: 5rem;
   border-radius: 1rem;
   text-align: center;
@@ -117,4 +118,36 @@ textarea {
 
 .contact-form button:hover {
   background-color: var(--color-dark);
+}
+
+@media (max-width: 760px) {
+  .contact-map {
+    height: 30rem;
+    margin-bottom: 7rem;
+  }
+  .contact-form-container {
+    margin: 0 auto 7rem;
+    padding: 2rem;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .contact-form input,
+  textarea {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .contact-text-title {
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+  }
+  .contact-text-container {
+    padding: 0 0 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+  }
 }

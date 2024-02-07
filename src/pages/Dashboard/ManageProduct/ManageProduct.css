@@ -104,3 +104,37 @@
 .m-product-box-btn:hover {
   background-color: var(--color-primary-dark);
 }
+
+@media (max-width: 650px) {
+  .m-product-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+    box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.2);
+    margin-bottom: 3rem;
+    padding: 1.5rem 1rem;
+  }
+  .m-product-img {
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+  .m-product-title {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  .m-product-box-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .m-product-box-btn {
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+  }
+  .m-product-box-btn:first-of-type {
+    margin-bottom: 0;
+  }
+}

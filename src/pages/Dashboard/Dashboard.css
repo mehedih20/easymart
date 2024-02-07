@@ -30,6 +30,10 @@
   background-color: var(--color-primary-dark);
 }
 
+.dashboard-nav-active {
+  background-color: var(--color-primary-dark) !important;
+}
+
 .dasboard-welcome h2 {
   color: var(--color-dark);
   font-size: 2rem;
@@ -45,4 +49,20 @@
   color: var(--color-primary);
   font-size: 3rem;
   font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .dashboard-content {
+    margin-bottom: 5rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .dashboard-nav a {
+    padding: 1.5rem 2rem;
+  }
 }

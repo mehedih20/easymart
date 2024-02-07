@@ -45,7 +45,7 @@
 }
 
 .manageAdmin-user {
-  margin: 5rem 0;
+  margin: 5rem 0 0;
   padding: 2rem;
   display: flex;
   justify-content: space-between;
@@ -93,4 +93,42 @@
   border-radius: 1rem;
   margin-bottom: 5rem;
   cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .manageAdmin {
+    padding-bottom: 7rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .manageAdmin-form-container form {
+    width: 100%;
+  }
+
+  .manageAdmin-form-container form input {
+    width: 80%;
+    outline: none;
+    border: none;
+    padding: 1rem;
+    font-family: var(--font-quick);
+    color: var(--color-dark);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .manageAdmin-form-container form button {
+    padding: 1.5rem 0;
+    width: 20%;
+    color: var(--color-white);
+    background-color: var(--color-primary);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.5s ease;
+  }
+
+  .manageAdmin-user {
+    padding: 1.5rem;
+    width: 100%;
+  }
 }

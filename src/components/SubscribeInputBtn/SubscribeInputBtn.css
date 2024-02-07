@@ -40,3 +40,20 @@
 .subs-btn:hover {
   background-color: var(--color-primary-dark);
 }
+
+@media (max-width: 650px) {
+  .subs-btn-container {
+    max-width: 35rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .subs-btn-container {
+    max-width: 30rem;
+  }
+
+  .subs-btn {
+    padding: 1.5rem;
+    font-size: 1.4rem;
+  }
+}

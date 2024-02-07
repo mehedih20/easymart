@@ -8,9 +8,7 @@ const Title = ({ text }) => {
   return (
     <h2 className="title">
       <span>
-        <AiOutlineHome
-          style={{ marginTop: "-0.2rem", marginRight: "0.5rem" }}
-        />{" "}
+        <AiOutlineHome style={{ marginTop: "0.1rem", marginRight: "0.5rem" }} />{" "}
         Home <MdKeyboardArrowRight />
       </span>
       Pages <MdKeyboardArrowRight /> {newText[0]}

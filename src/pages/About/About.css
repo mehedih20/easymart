@@ -1,12 +1,12 @@
 .about-welcome {
   padding: 5rem 10rem 10rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(66rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
   gap: 2rem;
 }
 
 .welcome-img {
-  width: 55rem;
+  max-width: 55rem;
   height: 75rem;
   margin: 0 auto;
   overflow: hidden;
@@ -55,7 +55,7 @@
 
 .slide-item {
   padding: 0 1rem;
-  width: 24rem;
+  width: 22rem;
   height: 30rem;
   transition: all 0.5s ease;
 }
@@ -159,6 +159,8 @@
 
 .about-developer-img {
   position: relative;
+  display: flex;
+  align-items: flex-end;
 }
 
 .about-developer-img img {
@@ -192,4 +194,65 @@
   color: var(--color-grey);
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+@media (max-width: 1600px) {
+  .about-welcome {
+    padding: 5rem 2rem 10rem;
+    grid-template-columns: 40rem 1fr;
+    gap: 5rem;
+  }
+}
+
+@media (max-width: 1400px) {
+  .welcome-img {
+    max-width: 35rem;
+    height: 50rem;
+  }
+  .about-welcome {
+    grid-template-columns: 30rem 1fr;
+    gap: 2rem;
+  }
+  .about-developer-container {
+    gap: 3rem;
+    padding: 5rem 2rem 10rem;
+  }
+}
+
+@media (max-width: 1040px) {
+  .about-welcome {
+    grid-template-columns: 1fr;
+    padding: 5rem 2rem 5rem;
+  }
+  .about-title {
+    text-align: center;
+    margin: 5rem 0 2rem;
+  }
+  .about-services {
+    padding: 0 5rem 2rem;
+  }
+  .about-services-container {
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 3rem;
+  }
+
+  .about-services-box {
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 740px) {
+  .about-welcome {
+    padding: 5rem 2rem 0;
+  }
+  .welcome-slider-container {
+    display: none;
+  }
+  .about-services {
+    padding: 0 2rem 2rem;
+  }
+  .about-developer-container {
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    padding: 1rem 0 10rem;
+  }
 }

@@ -19,7 +19,7 @@ const SingleProduct = () => {
   const { data, isLoading } = useGetSingleProductQuery(productId);
   const [addItemToCart, { isLoading: addToCartLoading }] =
     useAddToCartMutation();
-  const { data: userData } = useGetSingleUserQuery(user.email);
+  const { data: userData } = useGetSingleUserQuery(user?.email);
 
   const reRating = (rating) => {
     const starArr = [];
@@ -92,43 +92,48 @@ const SingleProduct = () => {
                 <p className="product-price">${data.product?.price}</p>
                 <p className="product-old-price">{data.product?.oldPrice}</p>
               </div>
-              {(userData?.user.role === "owner" ||
-                userData?.user.role === "admin") && (
+              {!(
+                userData?.user?.role === "owner" ||
+                userData?.user?.role === "admin"
+              ) && (
+                <div>
+                  <div className="singleProduct-quantity">
+                    <p>Quantity: </p>
+                    <div className="singleProduct-quantity-box">
+                      <button
+                        onClick={() => {
+                          productQuantity > 0 &&
+                            setProductQuantity(productQuantity - 1);
+                        }}
+                      >
+                        -
+                      </button>
+                      <span>{productQuantity}</span>
+                      <button
+                        onClick={() => setProductQuantity(productQuantity + 1)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  {productQuantity > 0 && (
+                    <p className="singleProduct-total">
+                      <span>Total: </span>$
+                      {data.product.price * productQuantity}
+                    </p>
+                  )}
+                </div>
+              )}
+              {(userData?.user?.role === "owner" ||
+                userData?.user?.role === "admin") && (
                 <div style={{ marginBottom: "30px" }}></div>
               )}
               <div className="single-item-btn-container">
                 {!(
-                  userData?.user.role === "owner" ||
-                  userData?.user.role === "admin"
+                  userData?.user?.role === "owner" ||
+                  userData?.user?.role === "admin"
                 ) && (
                   <>
-                    <div className="singleProduct-quantity">
-                      <p>Quantity: </p>
-                      <div className="singleProduct-quantity-box">
-                        <button
-                          onClick={() => {
-                            productQuantity > 0 &&
-                              setProductQuantity(productQuantity - 1);
-                          }}
-                        >
-                          -
-                        </button>
-                        <span>{productQuantity}</span>
-                        <button
-                          onClick={() =>
-                            setProductQuantity(productQuantity + 1)
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    {productQuantity > 0 && (
-                      <p className="singleProduct-total">
-                        <span>Total: </span>$
-                        {data.product.price * productQuantity}
-                      </p>
-                    )}
                     <button className="addCart-btn" onClick={addToCart}>
                       {addToCartLoading ? (
                         <ReactLoader type={"spin"} color={"red"} />

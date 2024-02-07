@@ -10,13 +10,14 @@
   justify-content: center;
   align-items: center;
   transition: all 0.4s ease-in-out;
-  overflow: hidden;
 }
 
 .manage-modal {
+  overflow-y: scroll;
   background-color: var(--color-primary-light);
-  border-radius: 1rem;
-  padding: 3rem;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  max-height: 70rem;
 }
 
 .modal-cancel-btn {
@@ -31,4 +32,10 @@
   height: 0;
   overflow: hidden;
   visibility: hidden;
+}
+
+@media (max-width: 650px) {
+  .manage-modal {
+    width: 100%;
+  }
 }

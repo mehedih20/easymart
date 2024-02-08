@@ -9,18 +9,22 @@ import {
   updateProfile,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  getIdToken,
 } from "firebase/auth";
 import initializeAuthentication from "../firebase/firebase-init";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/features/user/userSlice";
+import { toast } from "sonner";
 
 initializeAuthentication();
 
 const useFirebase = () => {
-  const [notification, setNotification] = useState(null);
   const [user, setUser] = useState(null);
   const [reloadLoading, setReloadLoading] = useState(true);
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
   const googleProvider = new GoogleAuthProvider();
+  const dispatch = useDispatch();
 
   const createUserInDB = (person) => {
     fetch("https://easy-mart-server-sandy.vercel.app/users", {
@@ -45,6 +49,7 @@ const useFirebase = () => {
           role: "user",
         };
         createUserInDB(person);
+        toast.success("Logged in!");
         navigate(location);
       })
       .catch((error) => console.log(error.message));
@@ -63,7 +68,7 @@ const useFirebase = () => {
               })
                 .then(() => {
                   sendEmailVerification(auth.currentUser)
-                    .then(() => setNotification("Email verification sent"))
+                    .then(() => toast.error("Email verification sent"))
                     .catch((error) => console.log(error));
                   setLoading(false);
                 })
@@ -71,7 +76,7 @@ const useFirebase = () => {
             })
             .catch((error) => console.log(error));
         } else {
-          setNotification("User already exist with the same email!");
+          toast.error("User not verified! Please check your mail.");
           setLoading(false);
         }
       });
@@ -82,7 +87,7 @@ const useFirebase = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         if (result.user.emailVerified === false) {
-          setNotification("User not verified! Please check your mail.");
+          toast.error("User not verified! Please check your mail.");
           setLoading(false);
           return;
         }
@@ -92,6 +97,7 @@ const useFirebase = () => {
             email: result.user.email,
           };
           createUserInDB(person);
+          toast.success("Logged in!");
         }
 
         setLoading(false);
@@ -101,13 +107,6 @@ const useFirebase = () => {
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setNotification(null);
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [notification]);
-
-  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user && user.emailVerified) {
         const person = {
@@ -115,6 +114,9 @@ const useFirebase = () => {
           email: user.email,
         };
         setUser(person);
+        getIdToken(user).then((idToken) => {
+          dispatch(setToken(idToken));
+        });
       }
       setReloadLoading(false);
     });
@@ -131,7 +133,6 @@ const useFirebase = () => {
     createNewUser,
     signInUser,
     loading,
-    notification,
     reloadLoading,
   };
 };

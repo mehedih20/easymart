@@ -17,8 +17,7 @@ const Login = () => {
   let { from } = location.state || { from: { pathname: "/" } };
   //----------
   const { firebase } = useGlobalContext();
-  const { googleSignIn, createNewUser, signInUser, loading, notification } =
-    firebase;
+  const { googleSignIn, createNewUser, signInUser, loading } = firebase;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +76,6 @@ const Login = () => {
             {loading ? <ReactLoader type={"spin"} color={"red"} /> : "Submit"}
           </button>
 
-          {notification && <span>{notification}</span>}
           <p>_ _ _ _ _ _</p>
 
           <button className="google-btn" onClick={handleGoogleSignIn}>

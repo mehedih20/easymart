@@ -2,15 +2,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://easy-mart-server-sandy.vercel.app",
-  // prepareHeaders: (headers, { getState }) => {
-  //   const token = (getState()).auth.token;
+  prepareHeaders: (headers, { getState }) => {
+    const { userToken: token } = getState().user;
 
-  //   if (token) {
-  //     headers.set("authorization", token);
-  //   }
+    if (token) {
+      headers.set("authorization", token);
+    }
 
-  //   return headers;
-  // },
+    return headers;
+  },
 });
 
 export const baseApi = createApi({

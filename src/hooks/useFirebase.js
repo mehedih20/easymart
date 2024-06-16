@@ -36,6 +36,7 @@ const useFirebase = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUser(person);
       });
   };
@@ -60,7 +61,7 @@ const useFirebase = () => {
     fetch(`https://easy-mart-server-sandy.vercel.app/users/${email}`)
       .then((res) => res.json())
       .then((data) => {
-        if (!data) {
+        if (!data?.user) {
           createUserWithEmailAndPassword(auth, email, password)
             .then((result) => {
               updateProfile(auth.currentUser, {
@@ -74,11 +75,16 @@ const useFirebase = () => {
                 })
                 .catch((error) => console.log(error));
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+              toast.error(error.message);
+              console.log(error);
+            });
         } else {
-          toast.error("User not verified! Please check your mail.");
-          setLoading(false);
+          toast.error("User registered with the same email!");
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -95,6 +101,7 @@ const useFirebase = () => {
           const person = {
             name: result.user.displayName,
             email: result.user.email,
+            role: "user",
           };
           createUserInDB(person);
           toast.success("Logged in!");
@@ -103,7 +110,11 @@ const useFirebase = () => {
         setLoading(false);
         navigate(location);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        setLoading(false);
+        toast.error(error.message);
+      });
   };
 
   useEffect(() => {

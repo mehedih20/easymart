@@ -59,8 +59,6 @@ const Dashboard = () => {
     { name: "limit", value: 0 },
   ]);
 
-  console.log(pathname);
-
   let productData = [];
   if (data?.products) {
     productData = [...data?.products?.data].reverse().slice(0, 4);
@@ -79,7 +77,7 @@ const Dashboard = () => {
           {!userLoading && (
             <>
               <nav className="dashboard-nav">
-                {userData?.user.role === "owner" && (
+                {userData?.user?.role === "owner" && (
                   <>
                     {superAdminNavData.map((item, index) => (
                       <Link
@@ -94,7 +92,7 @@ const Dashboard = () => {
                     ))}
                   </>
                 )}
-                {userData?.user.role === "admin" && (
+                {userData?.user?.role === "admin" && (
                   <>
                     {adminNavData.map((item, index) => (
                       <Link
@@ -109,7 +107,7 @@ const Dashboard = () => {
                     ))}
                   </>
                 )}
-                {userData?.user.role === "user" && (
+                {userData?.user?.role === "user" && (
                   <>
                     {userNavData.map((item, index) => (
                       <Link

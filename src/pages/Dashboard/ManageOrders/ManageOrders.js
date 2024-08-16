@@ -7,7 +7,7 @@ const ManageOrders = ({ dashboardUser }) => {
   const { data, refetch } = useGetAllOrdersQuery(undefined);
 
   return (
-    <div>
+    <div className="manage-orders-container">
       {data &&
         data.orders.map((item, index) => {
           return (

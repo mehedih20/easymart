@@ -44,6 +44,20 @@ const Login = () => {
       <div className="login-container">
         <h2>{isUser ? "Login" : "Sign Up"}</h2>
         <form className="login-form" onSubmit={handleSubmit}>
+          {isUser && (
+            <div className="login-test-credentials">
+              <div>
+                <h4>Test User</h4>
+                <p>email: mehedih201655@gmail.com</p>
+                <p>pass: userpassword</p>
+              </div>
+              <div>
+                <h4>Test Admin</h4>
+                <p>email: mohedurrahman9@gmail.com</p>
+                <p>pass: adminpassword</p>
+              </div>
+            </div>
+          )}
           {isUser ? null : (
             <input
               type="text"

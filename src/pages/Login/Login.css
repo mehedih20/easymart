@@ -15,6 +15,21 @@
   letter-spacing: 1px;
 }
 
+.login-test-credentials {
+  background-color: #ffffffe5;
+  margin-bottom: 3rem;
+  border-radius: 1rem;
+  text-align: left;
+  padding: 1rem 2rem;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.login-test-credentials div > * {
+  margin-bottom: 2px;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;

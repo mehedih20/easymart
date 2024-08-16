@@ -20,41 +20,46 @@ const Contact = () => {
             <div className="contact-text">
               <h2>Let us know how we can help you</h2>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                harum eius ad sequi similique exercitationem amet minus, id odit
-                unde.
+                At EasyMart, we're dedicated to providing exceptional customer
+                support and ensuring your satisfaction. If you have any
+                questions, need assistance with an order, or simply want to
+                share your thoughts, our team is here to assist you.
                 <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-                molestiae. Amet, perspiciatis possimus dolorem ex error iure
-                facilis sit vel.
+                We value your input and aim to make every interaction as smooth
+                as possible. Let us know how we can assist you, and we'll do our
+                best to make your experience with EasyMart a positive one.
               </p>
             </div>
             <div className="contact-text">
               <h3>01. Visit Feedback</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                harum eius ad sequi similique exercitationem amet minus, id odit
-                unde.
+                We value your opinion and want to hear about your experience.
+                Your feedback helps us improve our services and ensures we
+                provide the best shopping experience. Whether it's praise or
+                constructive criticism, we appreciate your insights.
               </p>
               <h3>03. Billing Inquiries</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                harum eius ad sequi similique exercitationem amet minus, id odit
-                unde.
+                If you have any questions or concerns about your billing or
+                payments, our support team is here to assist. We can help
+                clarify charges, resolve disputes, and ensure your billing
+                experience is smooth and transparent.
               </p>
             </div>
             <div className="contact-text">
               <h3>02. Employer Services</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                harum eius ad sequi similique exercitationem amet minus, id odit
-                unde.
+                We offer tailored services for employers looking to partner with
+                us. From bulk purchasing to corporate discounts, our employer
+                services are designed to meet the unique needs of businesses.
+                Contact us to explore how we can support your organization.
               </p>
               <h3>04.General Inquiries</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                harum eius ad sequi similique exercitationem amet minus, id odit
-                unde.
+                For any other questions or general information about EasyMart,
+                our customer service team is ready to help. Whether you’re
+                curious about our products, policies, or just need assistance,
+                we're here to provide the answers you need.
               </p>
             </div>
           </div>

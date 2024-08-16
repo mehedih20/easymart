@@ -28,31 +28,43 @@ const serviceData = [
     id: 1,
     icon: serviceIcon1,
     title: "Best Prices & Offers",
+    description:
+      "EasyMart delivers unbeatable value with the best prices and exclusive offers on a wide range of products. Enjoy substantial savings on quality items, with deals that are regularly updated to ensure you always get the most for your money.",
   },
   {
     id: 2,
     icon: serviceIcon2,
     title: "Wide Assortment",
+    description:
+      "We offer a diverse selection of products to meet all your needs. From electronics to fashion, and home essentials to beauty, our extensive assortment ensures you’ll find everything you’re looking for in one place.",
   },
   {
     id: 3,
     icon: serviceIcon3,
     title: "Free Delivery",
+    description:
+      "Enjoy the convenience of free delivery on your purchases. No hidden costs, just straightforward, fast, and reliable service that brings your favorite products right to your doorstep.",
   },
   {
     id: 4,
     icon: serviceIcon4,
     title: "Great Daily Deal",
+    description:
+      "Discover incredible savings with EasyMart's Great Daily Deal, offering limited-time discounts on popular products. These daily specials provide exceptional value, making it easier than ever to snag the best deals on the items you love.",
   },
   {
     id: 5,
     icon: serviceIcon5,
     title: "100% Satisfaction",
+    description:
+      "EasyMart is dedicated to 100% customer satisfaction. We ensure that every shopping experience meets your expectations, with quality products and reliable service. If something isn't right, our team is here to make it right.",
   },
   {
     id: 6,
     icon: serviceIcon6,
     title: "Easy Returns",
+    description:
+      "Shopping here is risk-free with our easy returns policy. If you’re not completely satisfied with your purchase, returning it is a simple and hassle-free process, giving you peace of mind with every order.",
   },
 ];
 
@@ -84,18 +96,19 @@ const About = () => {
           <div className="about-welcome-right-text">
             <h2>Welcome to EasyMart</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-              aspernatur deleniti praesentium sequi. Illum repellat deleniti
-              fugit cum? Fuga doloremque facere hic tenetur velit fugiat quod
-              qui animi, adipisci, recusandae ducimus architecto nam nostrum
-              optio sequi quam officiis. Voluptas culpa voluptatum esse
-              doloremque quaerat qui? Eaque esse odit ducimus amet.
+              EasyMart is an ecommerce web application designed to provide a
+              smooth and intuitive shopping experience. It offers a wide range
+              of products, add items to their cart, and complete their purchases
+              with just a few clicks. The platform ensures a seamless and secure
+              shopping process, with features like user account management,
+              order tracking, and various payment options to accommodate
+              different customer needs.
             </p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi qui
-              sint vel nisi provident perferendis, repellat recusandae.
-              Repudiandae est saepe amet laudantium nesciunt sequi eum earum?
-              Quos quaerat qui animi?
+              We offer a comprehensive admin panel that simplifies the
+              management of products, orders. The application is built to handle
+              high volumes of traffic while maintaining fast load times and
+              reliable performance.
             </p>
           </div>
           <div className="about-welcome-right-slider">
@@ -122,16 +135,12 @@ const About = () => {
         </div>
         <div className="about-services-container">
           {serviceData.map((item) => {
-            const { id, title, icon } = item;
+            const { id, title, icon, description } = item;
             return (
               <div className="about-services-box" key={id}>
                 <img src={icon} alt="services-icon" />
                 <h4>{title}</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                  quaerat ducimus eaque provident quisquam. Velit recusandae
-                  praesentium consectetur veniam fuga!
-                </p>
+                <p>{description}</p>
               </div>
             );
           })}

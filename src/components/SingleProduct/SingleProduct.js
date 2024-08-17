@@ -64,33 +64,36 @@ const SingleProduct = () => {
       {isLoading && <ReactLoader type={"spin"} color={"green"} />}
       {data?.product && (
         <Title
-          text={`Categories/${data.product.category}/${data.product.name}`}
+          text={`Categories/${data?.product?.category}/${data?.product?.name}`}
         />
       )}
       <div className="singleProduct-container">
         {data?.product && (
           <>
             <div className="singleProduct-left">
-              <img src={data.product.imgUrl} alt="single-product" />
+              <img src={data?.product?.imgUrl} alt="single-product" />
             </div>
             <div className="singleProduct-right">
-              <h3 className="product-title">{data.product?.name}</h3>
-              <p className="product-ctg">{data.product?.category}</p>
+              <h3 className="product-title">{data?.product?.name}</h3>
+              <p className="product-ctg">{data?.product?.category}</p>
               <p className="product-rating">
-                {reRating(data.product.rating).map((item, index) => {
+                {reRating(data?.product?.rating).map((item, index) => {
                   return <span key={index}>{item}</span>;
                 })}
               </p>
               <p className="singleProduct-desc">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. A
-                nobis distinctio libero corporis recusandae eum vel quis et
-                accusamus animi? Explicabo incidunt rerum ut esse cupiditate
-                veritatis eligendi aliquid nihil natus quis fugiat, mollitia
-                iure soluta praesentium eos tempora nobis.
+                Discover the perfect blend of quality and value with this
+                premium product. Designed to meet your needs and exceed your
+                expectations, it offers a versatile and reliable solution for
+                everyday use. Crafted with attention to detail, it combines
+                functionality with style, making it an essential addition to
+                your collection. Whether you're looking for performance,
+                durability, or aesthetics, this product delivers on all fronts,
+                ensuring satisfaction with every purchase.
               </p>
               <div className="product-box-bottom-price singleProduct-price-box">
-                <p className="product-price">${data.product?.price}</p>
-                <p className="product-old-price">{data.product?.oldPrice}</p>
+                <p className="product-price">${data?.product?.price}</p>
+                <p className="product-old-price">{data?.product?.oldPrice}</p>
               </div>
               {!(
                 userData?.user?.role === "owner" ||

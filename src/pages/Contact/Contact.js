@@ -6,6 +6,7 @@ import contactMap from "../../assets/Contact/contact-map.webp";
 const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    window.alert("Submission done!");
   };
   return (
     <div className="container">

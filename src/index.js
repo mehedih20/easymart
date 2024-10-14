@@ -13,7 +13,11 @@ root.render(
     <Provider store={store}>
       <AppProvider>
         <App />
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            className: "default-toast",
+          }}
+        />
       </AppProvider>
     </Provider>
   </React.StrictMode>

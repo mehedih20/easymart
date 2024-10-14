@@ -27,9 +27,9 @@ const SingleOrder = ({ item, dashboardUser, refetch }) => {
   };
 
   const deleteOrder = async () => {
-    const toastId = toast.loading("Deleting order. Please wait...");
+    const toastId = toast.loading("Cancelling order. Please wait...");
     await deleteUserOrder(_id);
-    toast.success("Order deleted", { id: toastId });
+    toast.success("Order Canceled", { id: toastId });
     refetch();
   };
 
@@ -66,7 +66,7 @@ const SingleOrder = ({ item, dashboardUser, refetch }) => {
             disabled={status === "shipped" ? true : false}
             onClick={deleteOrder}
           >
-            {status === "pending" && "Delete"}
+            {status === "pending" && "Cancel Order"}
           </button>
         )}
       </div>

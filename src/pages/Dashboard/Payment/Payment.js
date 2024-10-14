@@ -5,8 +5,9 @@ const Payment = () => {
   return (
     <div className="payment">
       <p>
-        Payment options are not available at the moment.
-        <br /> They will be added shortly!
+        Online payment options are not available at the moment.
+        <br /> For the time being, we are only offering cash on delivery. Thank
+        you!
       </p>
     </div>
   );

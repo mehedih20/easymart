@@ -1,5 +1,5 @@
 /* Imported fonts link */
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Open+Sans:wght@300;400;700&family=Quicksand:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&display=swap");
 
 /* Root variables */
 :root {
@@ -9,7 +9,7 @@
   --color-dark: #4d4d4d;
   --color-grey: #61677a;
   --color-grey-medium: #a4a5a5;
-  --color-grey-light: #e3e3e3;
+  --color-grey-light: #ededed;
   --color-primary: #ff8551;
   --color-primary-light: #ffdaca;
   --color-red: #f24c3d;
@@ -105,6 +105,10 @@ a {
 
 .mb-5 {
   margin-bottom: 5rem;
+}
+
+.default-toast {
+  font-size: 1.5rem;
 }
 
 @media (max-width: 850px) {

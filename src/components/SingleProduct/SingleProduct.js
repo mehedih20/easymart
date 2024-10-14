@@ -9,6 +9,8 @@ import { useGetSingleProductQuery } from "../../redux/features/products/products
 import { toast } from "sonner";
 import { useAddToCartMutation } from "../../redux/features/cart/cartApi";
 import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
+import Reviews from "../Reviews/Reviews";
+import ReviewForm from "../ReviewForm/ReviewForm";
 
 const SingleProduct = () => {
   const [productQuantity, setProductQuantity] = useState(1);
@@ -161,6 +163,17 @@ const SingleProduct = () => {
           </>
         )}
       </div>
+      {data?.product && (
+        <div>
+          <h3 className="reviews-form-title">
+            <span>Rating</span> & Reviews
+          </h3>
+          <div className="review-form-container">
+            <Reviews productId={productId} />
+            <ReviewForm productId={productId} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

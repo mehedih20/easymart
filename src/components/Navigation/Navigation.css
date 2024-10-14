@@ -1,5 +1,17 @@
 /*--------- Header top -----------*/
 
+.header-sales {
+  background-color: var(--color-primary);
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-sales p {
+  color: var(--color-white);
+}
+
 .header-top {
   display: flex;
   justify-content: space-between;

@@ -144,7 +144,7 @@
 .review-form-container {
   display: grid;
   grid-template-columns: 3fr 2fr;
-  gap: 5rem;
+  gap: 3rem;
   margin-bottom: 10rem;
   align-items: flex-start;
 }

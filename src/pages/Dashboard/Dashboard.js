@@ -13,6 +13,7 @@ import Payment from "./Payment/Payment";
 import Title from "../../components/Title/Title";
 import { useGetProductsQuery } from "../../redux/features/products/productsApi";
 import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
+import DashboardWelcome from "./DashboardWelcome/DashboardWelcome";
 
 const superAdminNavData = [
   {
@@ -124,24 +125,7 @@ const Dashboard = () => {
                 )}
               </nav>
               <div className="dashboard-content">
-                {pathname === "/dashboard" && (
-                  <>
-                    <div className="dasboard-welcome">
-                      <h2>
-                        Welcome to your dashboard <span>{user.name}</span> !
-                      </h2>
-                    </div>
-                    <div>
-                      {!dataLoading && (
-                        <ShowProducts
-                          page={"dashboard"}
-                          title={"Recently added"}
-                          products={productData}
-                        />
-                      )}
-                    </div>
-                  </>
-                )}
+                {pathname === "/dashboard" && <DashboardWelcome />}
                 {pathname === "/dashboard/addProduct" && <AddProduct />}
                 {pathname === "/dashboard/manageProduct" && <ManageProduct />}
                 {pathname === "/dashboard/manageAdmin" && <ManageAdmin />}

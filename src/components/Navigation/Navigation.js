@@ -22,7 +22,15 @@ import { useGetProductsQuery } from "../../redux/features/products/productsApi";
 import { toast } from "sonner";
 import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
 
+const topTexts = [
+  "5% off on all products 🔥",
+  "Free shipping on orders over $50 🚀",
+  "Buy 1 get 1 free!",
+  "Special discounts for members 💥",
+];
+
 const Navigation = () => {
+  const [changingTextIndex, setChangingTextIndex] = useState(0);
   const [showNavigation, setShowNavigation] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isSkip, setIsSkip] = useState(true);
@@ -32,6 +40,7 @@ const Navigation = () => {
   const { firebase } = useGlobalContext();
   const { auth, signOut, user, setUser } = firebase;
   const { pathname } = useLocation();
+
   const { data } = useGetProductsQuery(
     [{ name: "searchTerm", value: searchText }],
     { skip: isSkip }
@@ -66,6 +75,13 @@ const Navigation = () => {
   };
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setChangingTextIndex((prevIndex) => (prevIndex + 1) % topTexts.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  });
+
+  useEffect(() => {
     let linksHeight = linksRef.current.getBoundingClientRect().height;
     if (showNavigation) {
       linksContainerRef.current.style.height = `${linksHeight}px`;
@@ -76,6 +92,9 @@ const Navigation = () => {
 
   return (
     <header>
+      <div className="header-sales">
+        <p>{topTexts[changingTextIndex]}</p>
+      </div>
       <div className="container">
         <div className="header-top">
           <div className="header-top-left">

@@ -36,7 +36,6 @@ const useFirebase = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(person);
       });
   };
@@ -56,36 +55,30 @@ const useFirebase = () => {
       .catch((error) => console.log(error.message));
   };
 
-  const createNewUser = (username, email, password) => {
+  const createNewUser = async (username, email, password) => {
     setLoading(true);
-    fetch(`https://easy-mart-server-sandy.vercel.app/users/${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data?.user) {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then((result) => {
-              updateProfile(auth.currentUser, {
-                displayName: username,
-              })
-                .then(() => {
-                  sendEmailVerification(auth.currentUser)
-                    .then(() => toast.error("Email verification sent"))
-                    .catch((error) => console.log(error));
-                  setLoading(false);
-                })
-                .catch((error) => console.log(error));
-            })
-            .catch((error) => {
-              toast.error(error.message);
-              console.log(error);
-            });
-        } else {
-          toast.error("User registered with the same email!");
-        }
-      })
-      .finally(() => {
+    const result = await fetch(
+      `https://easy-mart-server-sandy.vercel.app/users/${email}`
+    );
+    const data = await result.json();
+    console.log(data);
+
+    if (!data?.user) {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(auth.currentUser, { displayName: username });
+        await sendEmailVerification(auth.currentUser);
+        toast.success("Email verification sent");
+      } catch (err) {
+        console.error(err);
+        toast.error(err.message);
+      } finally {
         setLoading(false);
-      });
+      }
+    } else {
+      toast.error("User registered with the same email!");
+      setLoading(false);
+    }
   };
 
   const signInUser = (email, password, navigate, location) => {

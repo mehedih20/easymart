@@ -39,7 +39,8 @@ const OverviewDetails = ({ setIsEditing }) => {
         </div>
         <div className="overview-bottom-right">
           <h2>Welcome to your dashboard!</h2>
-          {(userData?.user?.role === "admin" && <AdminOverview />) ||
+          {((userData?.user?.role === "admin" ||
+            userData?.user?.role === "owner") && <AdminOverview />) ||
             (userData?.user?.role === "user" && <UserOverview />)}
         </div>
       </div>

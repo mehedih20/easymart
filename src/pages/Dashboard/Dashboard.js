@@ -16,7 +16,7 @@ import ManageCategories from "./ManageCategories/ManageCategories";
 
 const superAdminNavData = [
   {
-    name: "Dashboard",
+    name: "Overview",
     link: "/dashboard",
   },
   {
@@ -47,7 +47,7 @@ const adminNavData = superAdminNavData.filter(
 
 const userNavData = [
   {
-    name: "Dashboard",
+    name: "Overview",
     link: "/dashboard",
   },
   {

@@ -39,7 +39,7 @@
 
 .cart-item-box {
   display: flex;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   background-color: var(--color-white);
   box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
@@ -49,6 +49,7 @@
   width: 5rem;
   height: 5rem;
   margin-right: 5rem;
+  margin-left: 1rem;
 }
 
 .cart-item-img img {
@@ -73,10 +74,11 @@
 .cart-item-text p {
   font-size: 1.4rem;
   color: var(--color-grey);
+  text-align: center;
 }
 
 .cart-rmv-btn {
-  justify-self: center;
+  justify-self: flex-end;
   width: 12rem;
   background-color: var(--color-red);
   padding: 0.5rem 1rem;

@@ -1,5 +1,5 @@
 .overview-top {
-  background-color: var(--color-primary-light);
+  background-color: var(--color-primary-extralight);
   border-radius: 1rem;
   display: flex;
   height: 15rem;
@@ -62,15 +62,17 @@
 
 .overview-bottom {
   display: flex;
+  align-items: flex-start;
   gap: 3rem;
 }
 
 .overview-bottom-left {
   margin-top: 6rem;
-  background-color: var(--color-primary-light);
+  background-color: var(--color-primary-extralight);
   padding: 2rem;
   border-radius: 1rem;
   width: 25rem;
+  color: var(--color-dark);
 }
 
 .overview-bottom-left p {

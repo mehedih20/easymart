@@ -2,11 +2,18 @@ import React from "react";
 import "./SingleOrder.css";
 import {
   useDeleteOrderMutation,
+  useGetSingleUserOrdersQuery,
   useUpdateOrderStatusMutation,
 } from "../../redux/features/orders/ordersApi";
 import { toast } from "sonner";
+import useGlobalContext from "../../hooks/useGlobalContext";
+import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
 
 const SingleOrder = ({ item, dashboardUser, refetch }) => {
+  const { firebase } = useGlobalContext();
+  const { user } = firebase;
+  const { data: userData } = useGetSingleUserQuery(user?.email);
+
   const {
     _id,
     status,
@@ -44,6 +51,13 @@ const SingleOrder = ({ item, dashboardUser, refetch }) => {
           dashboardUser?.role === "owner") && <p>{email}</p>}
         <p>Quantity: {productQuantity}</p>
         {orderAddress && <p>{orderAddress}</p>}
+        {userData?.user?.role === "user" && (
+          <p className="order-status">
+            <span className={`${status === "shipped" && "bg-green"}`}>
+              {status === "shipped" ? "Shipped" : "Order placed"}
+            </span>
+          </p>
+        )}
         {(dashboardUser?.role === "admin" ||
           dashboardUser?.role === "owner") && (
           <button

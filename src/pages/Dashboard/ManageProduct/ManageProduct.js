@@ -8,6 +8,7 @@ import {
 } from "../../../redux/features/products/productsApi";
 import { toast } from "sonner";
 import ReactLoader from "../../../components/ReactLoading/ReactLoader";
+import ManageSingleProduct from "../../../components/ManageSingleProduct/ManageSingleProduct";
 
 const ManageProduct = () => {
   const { setEditItem } = useGlobalContext();
@@ -27,7 +28,7 @@ const ManageProduct = () => {
     setEditItem(item);
   };
 
-  const handleDeleteProduct = async (deleteId) => {
+  const handleDelete = async (deleteId) => {
     const toastId = toast.loading("Deleting product");
     const result = await deleteSingleProduct(deleteId);
 
@@ -45,49 +46,13 @@ const ManageProduct = () => {
         {isFetching ? (
           <ReactLoader type={"spin"} color={"red"} />
         ) : (
-          data?.products?.data?.map((item) => {
-            const { category, name, imgUrl, price, oldPrice, deal, _id } = item;
-            return (
-              <div className="m-product-box" key={_id}>
-                <span
-                  className={`m-product-deal ${
-                    (deal === "Sale" && "bg-green") ||
-                    (deal === "Hot" && "bg-blue")
-                  }`}
-                >
-                  {deal}
-                </span>
-                <div className="m-product-box-left">
-                  <div className="m-product-img">
-                    <img src={imgUrl} alt="product-img" />
-                  </div>
-                  <div>
-                    <p className="m-product-ctg">{category}</p>
-                    <p className="m-product-title">{name}</p>
-                    <div className="m-product-box-price">
-                      <p className="product-price">${price}</p>
-                      <p className="product-old-price">{oldPrice}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="m-product-box-right">
-                  <button
-                    className="m-product-box-btn"
-                    onClick={() => handleEdit(item)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="m-product-box-btn"
-                    onClick={() => handleDeleteProduct(_id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            );
-          })
+          data?.products?.data?.map((item) => (
+            <ManageSingleProduct
+              item={item}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+            />
+          ))
         )}
         <div
           className="product-pages"

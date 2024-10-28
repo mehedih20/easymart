@@ -11,8 +11,8 @@ import {
 import SingleOrder from "../../../../../components/ShowOrders/SingleOrder";
 import useGlobalContext from "../../../../../hooks/useGlobalContext";
 import {
+  useGetLastestThreeOrdersQuery,
   useGetSingleUserOrdersQuery,
-  useGetUserLastThreeOrdersQuery,
 } from "../../../../../redux/features/orders/ordersApi";
 import { useGetSingleUserQuery } from "../../../../../redux/features/user/userApi";
 import { processOrdersData } from "../../../../../utils/processOrdersData";
@@ -22,12 +22,12 @@ const UserOverview = () => {
   const { firebase } = useGlobalContext();
   const { user } = firebase;
   const { data: userData } = useGetSingleUserQuery(user?.email);
-  const { data, refetch } = useGetUserLastThreeOrdersQuery(user?.email);
+  const { data, refetch } = useGetLastestThreeOrdersQuery(user?.email);
   const { data: ordersData } = useGetSingleUserOrdersQuery(user?.email);
 
   return (
     <>
-      <div className="latest-orders">
+      <div className="overview-section mb-3">
         <h3>Recent Orders</h3>
         <div>
           {userData &&
@@ -44,7 +44,7 @@ const UserOverview = () => {
             })}
         </div>
       </div>
-      <div className="orders-history">
+      <div className="overview-section">
         <h3>Orders History</h3>
         <div>
           {ordersData && (

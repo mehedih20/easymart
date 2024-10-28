@@ -27,6 +27,13 @@ const productsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["products"],
     }),
+    getLatestProducts: builder.query({
+      query: () => ({
+        url: "/latest-products",
+        method: "GET",
+      }),
+      providesTags: ["products"],
+    }),
     getProductCategories: builder.query({
       query: () => ({
         url: `/products/categories`,
@@ -63,6 +70,7 @@ const productsApi = baseApi.injectEndpoints({
 export const {
   useGetProductsQuery,
   useGetSingleProductQuery,
+  useGetLatestProductsQuery,
   useGetProductCategoriesQuery,
   useAddSingleProductMutation,
   useDeleteSingleProductMutation,

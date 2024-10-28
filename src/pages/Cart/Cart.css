@@ -186,6 +186,9 @@
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
+  .cart-item-text p {
+    text-align: start;
+  }
   .cart-rmv-btn {
     justify-self: flex-start;
   }

@@ -8,3 +8,9 @@
   font-size: 1.3rem;
   width: 10rem;
 }
+
+@media (max-width: 768px) {
+  .order-status span {
+    margin-bottom: 1rem;
+  }
+}

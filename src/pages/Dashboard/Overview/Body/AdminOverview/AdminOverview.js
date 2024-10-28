@@ -44,6 +44,9 @@ const AdminOverview = () => {
   };
 
   const handleDelete = async (deleteId) => {
+    if (!window.confirm("Are you sure you want to delete?")) {
+      return;
+    }
     const toastId = toast.loading("Deleting product");
     const result = await deleteSingleProduct(deleteId);
 

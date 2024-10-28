@@ -1,7 +1,7 @@
 .dashboard {
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  gap: 5rem;
+  grid-template-columns: 1fr 5fr;
+  gap: 3rem;
   margin-top: 2rem;
 }
 
@@ -18,8 +18,8 @@
 .dashboard-nav a {
   background-color: var(--color-primary);
   color: var(--color-white);
-  padding: 2rem 4rem;
-  font-size: 1.8rem;
+  padding: 1.5rem 4rem;
+  font-size: 1.6rem;
   font-family: var(--font-jose);
   margin: 1rem 0;
   border-radius: 0.5rem;

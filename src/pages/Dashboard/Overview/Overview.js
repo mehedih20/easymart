@@ -4,10 +4,11 @@ import {
   useGetSingleUserQuery,
   useUpdateUserInfoMutation,
 } from "../../../redux/features/user/userApi";
-import "./DashboardWelcome.css";
+import OverviewDetails from "./Body/OverviewDetails/OverviewDetails";
+import "./Overview.css";
 import { toast } from "sonner";
 
-const DashboardWelcome = () => {
+const Overview = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { firebase } = useGlobalContext();
   const { user } = firebase;
@@ -50,9 +51,6 @@ const DashboardWelcome = () => {
 
   return (
     <div>
-      <div className="dasboard-welcome">
-        <h2>Welcome to your dashboard!</h2>
-      </div>
       {isEditing ? (
         <form className="dashboard-content-info" onSubmit={handleFormSubmit}>
           <div className="dashboard-content-text">
@@ -93,44 +91,10 @@ const DashboardWelcome = () => {
           </button>
         </form>
       ) : (
-        <div className="dashboard-user-content">
-          <div className="dashboard-user-image">
-            <img
-              src={`${
-                userData?.user?.profilePicture ||
-                "https://i.ibb.co/6DddXRP/user.png"
-              }`}
-              alt="man-image"
-            />
-          </div>
-          <div className="dashboard-content-info">
-            <div className="dashboard-content-text">
-              <h3>Name</h3>
-              <p>{userData?.user?.name}</p>
-            </div>
-            <div className="dashboard-content-text">
-              <h3>Email</h3>
-              <p>{userData?.user?.email}</p>
-            </div>
-            <div className="dashboard-content-text">
-              <h3>Role</h3>
-              <p>{userData?.user?.role}</p>
-            </div>
-            <div className="dashboard-content-text">
-              <h3>Address</h3>
-              <p>{userData?.user?.address || "?"}</p>
-            </div>
-            <div className="dashboard-content-text">
-              <h3>Number</h3>
-              <p>{userData?.user?.phoneNumber || "?"}</p>
-            </div>
-
-            <button onClick={() => setIsEditing(true)}>Edit Details</button>
-          </div>
-        </div>
+        <OverviewDetails setIsEditing={setIsEditing} />
       )}
     </div>
   );
 };
 
-export default DashboardWelcome;
+export default Overview;

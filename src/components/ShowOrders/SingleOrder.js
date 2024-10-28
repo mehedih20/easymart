@@ -43,13 +43,7 @@ const SingleOrder = ({ item, dashboardUser, refetch }) => {
         {(dashboardUser?.role === "admin" ||
           dashboardUser?.role === "owner") && <p>{email}</p>}
         <p>Quantity: {productQuantity}</p>
-        {orderAddress && <p>Delivery address: {orderAddress}</p>}
-        <p className="order-status">
-          Status:{" "}
-          <span className={`${status === "shipped" && "bg-green"}`}>
-            {status === "shipped" ? "shipped" : "Not shipped yet"}
-          </span>
-        </p>
+        {orderAddress && <p>{orderAddress}</p>}
         {(dashboardUser?.role === "admin" ||
           dashboardUser?.role === "owner") && (
           <button

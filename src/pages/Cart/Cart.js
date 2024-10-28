@@ -11,6 +11,7 @@ import {
   useRemoveCartItemMutation,
 } from "../../redux/features/cart/cartApi";
 import { useCreateUserOrderMutation } from "../../redux/features/orders/ordersApi";
+import { getRatingStars } from "../../utils/getRatingStars";
 
 const Cart = () => {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -106,7 +107,14 @@ const Cart = () => {
                         </div>
                         <div className="cart-item-text">
                           <h4>{productId.name}</h4>
-                          <p>Price: ${productId.price}</p>
+                          <p className="product-rating">
+                            {getRatingStars(productId?.rating).map(
+                              (item, index) => {
+                                return <span key={index}>{item}</span>;
+                              }
+                            )}
+                          </p>
+                          <p>${productId.price}</p>
                           <p>Quantity: {productQuantity}</p>
                           <button
                             className="cart-rmv-btn"

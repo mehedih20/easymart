@@ -19,6 +19,7 @@ import MyOrders from "./pages/Dashboard/MyOrders/MyOrders";
 import Payment from "./pages/Dashboard/Payment/Payment";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import AllProducts from "./pages/AllProducts/AllProducts";
+import ManageCategories from "./pages/Dashboard/ManageCategories/ManageCategories";
 
 const App = () => {
   return (
@@ -52,6 +53,10 @@ const App = () => {
           <Route path="/dashboard/manageProduct" element={<ManageProduct />} />
           <Route path="/dashboard/manageAdmin" element={<ManageAdmin />} />
           <Route path="/dashboard/manageOrders" element={<ManageOrders />} />
+          <Route
+            path="/dashboard/manageCategories"
+            element={<ManageCategories />}
+          />
           <Route path="/dashboard/myOrders" element={<MyOrders />} />
           <Route path="/dashboard/payment" element={<Payment />} />
         </Route>

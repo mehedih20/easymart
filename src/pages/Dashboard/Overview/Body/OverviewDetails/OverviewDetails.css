@@ -1,0 +1,137 @@
+.overview-top {
+  background-color: var(--color-primary-light);
+  border-radius: 1rem;
+  display: flex;
+  height: 15rem;
+  position: relative;
+  align-items: flex-end;
+  gap: 4rem;
+}
+
+.overview-top img {
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  position: relative;
+  top: 4rem;
+  left: 2rem;
+}
+
+.overview-top-text {
+  display: flex;
+  padding: 0 2rem 2rem 0;
+  gap: 1rem;
+  flex: 1;
+  justify-content: space-between;
+  align-items: flex-end;
+  position: relative;
+  height: 100%;
+}
+
+.overview-top-text h3 {
+  font-size: 2.8rem;
+  color: var(--color-dark);
+}
+.overview-top-text h3 span {
+  font-size: 1.2rem;
+}
+
+.overview-top-text button {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background-color: var(--color-primary);
+  padding: 1rem 0;
+  font-weight: 700;
+  color: var(--color-white);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.4s ease-in-out;
+}
+
+.overview-top-text button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+/* -------------------------------- */
+
+.overview-bottom {
+  display: flex;
+  gap: 3rem;
+}
+
+.overview-bottom-left {
+  margin-top: 6rem;
+  background-color: var(--color-primary-light);
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 25rem;
+}
+
+.overview-bottom-left p {
+  background-color: var(--color-white);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border-radius: 0.5rem;
+}
+.overview-bottom-left p:not(:last-of-type) {
+  margin-bottom: 1.5rem;
+}
+
+.overview-bottom-right {
+  flex: 1;
+}
+
+.overview-bottom-right h2 {
+  color: var(--color-dark);
+  padding: 1.5rem 0;
+  height: 6rem;
+  font-size: 1.6rem;
+  text-align: right;
+}
+
+/* -------------------------------- */
+
+@media (max-width: 960px) {
+  .overview-bottom {
+    flex-direction: column;
+  }
+  .overview-bottom-left {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .overview-top {
+    height: 11rem;
+  }
+  .overview-top img {
+    height: 10rem;
+    width: 10rem;
+    top: 2.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .overview-top {
+    gap: 3rem;
+  }
+  .overview-top-text {
+    padding: 0 1rem 1rem 0;
+  }
+  .overview-top-text h3 {
+    font-size: 2.2rem;
+  }
+  .overview-top-text button {
+    top: 1rem;
+    right: 1rem;
+  }
+  .overview-top-text h3 span {
+    display: none;
+  }
+}

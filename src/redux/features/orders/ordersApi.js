@@ -14,6 +14,14 @@ const ordersApi = baseApi.injectEndpoints({
         url: `/orders/${email}`,
         method: "GET",
       }),
+      providesTags: ["orders"],
+    }),
+    getUserLastThreeOrders: builder.query({
+      query: (email) => ({
+        url: `/latest-orders/${email}`,
+        method: "GET",
+      }),
+      providesTags: ["orders"],
     }),
     createUserOrder: builder.mutation({
       query: (data) => ({
@@ -43,6 +51,7 @@ const ordersApi = baseApi.injectEndpoints({
 export const {
   useGetAllOrdersQuery,
   useGetSingleUserOrdersQuery,
+  useGetUserLastThreeOrdersQuery,
   useUpdateOrderStatusMutation,
   useDeleteOrderMutation,
   useCreateUserOrderMutation,

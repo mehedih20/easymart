@@ -7,15 +7,18 @@ import ManageAdmin from "./ManageAdmin/ManageAdmin";
 import useGlobalContext from "../../hooks/useGlobalContext";
 import ReactLoader from "../../components/ReactLoading/ReactLoader";
 import ManageOrders from "./ManageOrders/ManageOrders";
-import ShowProducts from "../../components/ShowProducts/ShowProducts";
 import MyOrders from "./MyOrders/MyOrders";
 import Payment from "./Payment/Payment";
 import Title from "../../components/Title/Title";
-import { useGetProductsQuery } from "../../redux/features/products/productsApi";
 import { useGetSingleUserQuery } from "../../redux/features/user/userApi";
-import DashboardWelcome from "./DashboardWelcome/DashboardWelcome";
+import Overview from "./Overview/Overview";
+import ManageCategories from "./ManageCategories/ManageCategories";
 
 const superAdminNavData = [
+  {
+    name: "Dashboard",
+    link: "/dashboard",
+  },
   {
     name: "Add Product",
     link: "/dashboard/addProduct",
@@ -32,6 +35,10 @@ const superAdminNavData = [
     name: "Manage Orders",
     link: "/dashboard/manageOrders",
   },
+  {
+    name: "Manage Categories",
+    link: "/dashboard/manageCategories",
+  },
 ];
 
 const adminNavData = superAdminNavData.filter(
@@ -39,6 +46,10 @@ const adminNavData = superAdminNavData.filter(
 );
 
 const userNavData = [
+  {
+    name: "Dashboard",
+    link: "/dashboard",
+  },
   {
     name: "My Orders",
     link: "/dashboard/myOrders",
@@ -56,14 +67,6 @@ const Dashboard = () => {
   const { data: userData, isLoading: userLoading } = useGetSingleUserQuery(
     user.email
   );
-  const { data, isLoading: dataLoading } = useGetProductsQuery([
-    { name: "limit", value: 0 },
-  ]);
-
-  let productData = [];
-  if (data?.products) {
-    productData = [...data?.products?.data].reverse().slice(0, 4);
-  }
 
   return (
     <>
@@ -125,10 +128,13 @@ const Dashboard = () => {
                 )}
               </nav>
               <div className="dashboard-content">
-                {pathname === "/dashboard" && <DashboardWelcome />}
+                {pathname === "/dashboard" && <Overview />}
                 {pathname === "/dashboard/addProduct" && <AddProduct />}
                 {pathname === "/dashboard/manageProduct" && <ManageProduct />}
                 {pathname === "/dashboard/manageAdmin" && <ManageAdmin />}
+                {pathname === "/dashboard/manageCategories" && (
+                  <ManageCategories />
+                )}
                 {pathname === "/dashboard/manageOrders" && (
                   <ManageOrders dashboardUser={userData?.user} />
                 )}

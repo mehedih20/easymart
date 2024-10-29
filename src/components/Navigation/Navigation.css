@@ -25,6 +25,7 @@
 
 .header-top-left img {
   transform: scale(0.8);
+  cursor: pointer;
 }
 
 button {

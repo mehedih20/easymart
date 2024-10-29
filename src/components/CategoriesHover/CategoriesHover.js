@@ -4,49 +4,6 @@ import "./CategoriesHover.css";
 import { AiOutlineSend } from "react-icons/ai";
 import { useGetProductCategoriesQuery } from "../../redux/features/products/productsApi";
 
-const links = [
-  {
-    id: 1,
-    title: "Milks and Diaries",
-  },
-  {
-    id: 2,
-    title: "Bevereges & Drinks",
-  },
-  {
-    id: 3,
-    title: "Clothing and Beauty",
-  },
-  {
-    id: 4,
-    title: "Fresh Seafood",
-  },
-  {
-    id: 5,
-    title: "Pet Foods & Toy",
-  },
-  {
-    id: 6,
-    title: "Fast food",
-  },
-  {
-    id: 7,
-    title: "Snacks",
-  },
-  {
-    id: 8,
-    title: "Electronics",
-  },
-  {
-    id: 9,
-    title: "Vegetables",
-  },
-  {
-    id: 10,
-    title: "Fresh fruits",
-  },
-];
-
 const CategoriesHover = ({ showCategories }) => {
   const { data } = useGetProductCategoriesQuery(undefined);
 

@@ -98,7 +98,11 @@ const Navigation = () => {
       <div className="container">
         <div className="header-top">
           <div className="header-top-left">
-            <img src={headerlogo} alt="header-logo" />
+            <img
+              src={headerlogo}
+              alt="header-logo"
+              onClick={() => navigate("/")}
+            />
             <div className="header-top-search">
               <input
                 type="search"

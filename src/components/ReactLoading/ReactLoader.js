@@ -4,7 +4,7 @@ import ReactLoading from "react-loading";
 const ReactLoader = ({ type, color }) => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <ReactLoading type={type} color={color} height={20} width={20} />
+      <ReactLoading type={type} color={color} height={17} width={17} />
     </div>
   );
 };

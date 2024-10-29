@@ -3,6 +3,7 @@ import "./AddProduct.css";
 import ReactLoader from "../../../components/ReactLoading/ReactLoader";
 import { useAddSingleProductMutation } from "../../../redux/features/products/productsApi";
 import { toast } from "sonner";
+import { useGetCategoriesQuery } from "../../../redux/features/categories/categoriesApi";
 
 const validateData = (data) => {
   // Check if category, name, imgUrl, and deal are not empty
@@ -27,6 +28,7 @@ const validateData = (data) => {
 
 const AddProduct = () => {
   const [addSingleProduct, { isLoading }] = useAddSingleProductMutation();
+  const { data: categoriesData } = useGetCategoriesQuery(undefined);
 
   const [item1, setItem1] = useState("");
   const [item2, setItem2] = useState("");
@@ -88,16 +90,13 @@ const AddProduct = () => {
                 {" "}
                 -- select an option --{" "}
               </option>
-              <option value="Milks and Diaries">Milks and Diaries</option>
-              <option value="Bevereges & Drinks">Bevereges & Drinks</option>
-              <option value="Clothing and Beauty">Clothing and Beauty</option>
-              <option value="Fresh Seafood">Fresh Seafood</option>
-              <option value="Pet Foods & Toy">Pet Foods & Toy</option>
-              <option value="Fast food">Fast food</option>
-              <option value="Snacks">Snacks</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Vegetables">Vegetables</option>
-              <option value="Fresh fruits">Fresh fruits</option>
+              {categoriesData?.categories?.map((item) => {
+                return (
+                  <option key={item?._id} value={item?.categoryName}>
+                    {item?.categoryName}
+                  </option>
+                );
+              })}
             </select>
             <p>Name</p>
             <input
